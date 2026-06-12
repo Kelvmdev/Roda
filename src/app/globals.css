@@ -1,26 +1,33 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Tokens de color de la marca RODA (Tailwind v4).
+   Cambiar un tono = un solo lugar. Genera utilidades: bg-fondo, text-navy, border-linea... */
+@theme {
+  --color-fondo: #f4f6f9;
+  --color-superficie: #ffffff;
+  --color-navy: #0e2342;
+  --color-navy-2: #16335c;
+  --color-acento: #1e6fd9;
+  --color-acento-suave: #e8f1fe;
+  --color-linea: #e2e7ef;
+  --color-texto: #0e2342;
+  --color-texto-suave: #5c6b82;
 }
 
+/* Fuentes: referencian las variables que inyecta next/font en el layout.
+   Genera utilidades: font-display (títulos) y font-body (texto). */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-barlow);
+  --font-body: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Landing siempre en tema claro: ignora el modo oscuro del sistema operativo. */
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--font-inter), system-ui, sans-serif;
 }

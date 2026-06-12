@@ -1,0 +1,187 @@
+"use client";
+
+import { useState } from "react";
+import Logo from "./Logo";
+
+// Una sola fuente de verdad para los enlaces (DRY §5.2).
+const ENLACES = [
+  { label: "Carros", href: "#" },
+  { label: "Motos", href: "#" },
+  { label: "Marcas", href: "#" },
+  { label: "Ofertas", href: "#" },
+  { label: "Ayuda", href: "#" },
+];
+
+// Campo de búsqueda reutilizado en desktop y en el menú móvil.
+function Busqueda({ className = "" }) {
+  return (
+    <form role="search" className={`relative ${className}`}>
+      <label htmlFor="buscar" className="sr-only">
+        Buscar llantas
+      </label>
+      <input
+        id="buscar"
+        type="search"
+        name="q"
+        placeholder="Busca por medida o marca…"
+        autoComplete="off"
+        className="w-full rounded-full border border-linea bg-fondo py-2 pl-4 pr-10 text-sm text-texto placeholder:text-texto-suave focus:border-acento focus:outline-none focus:ring-2 focus:ring-acento/40"
+      />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-texto-suave"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+        <path d="m20 20-3-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    </form>
+  );
+}
+
+export default function Header() {
+  const [abierto, setAbierto] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-50">
+      {/* Barra superior delgada (navy) */}
+      <div className="bg-navy text-superficie text-xs">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2">
+          <a href="tel:+573117365928" className="hover:underline">
+            <span aria-hidden="true">☎</span> Asesoría: +57 311 736 5928
+          </a>
+          <span className="hidden sm:inline">
+            <span aria-hidden="true">🚚</span> Envío e instalación en Medellín
+          </span>
+        </div>
+      </div>
+
+      {/* Header principal (blanco) */}
+      <div className="border-b border-linea bg-superficie">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
+          {/* Izquierda: logo */}
+          <a href="#" aria-label="RODA, inicio" className="shrink-0">
+            <Logo />
+          </a>
+
+          {/* Centro: enlaces (solo desktop) */}
+          <nav aria-label="Principal" className="hidden md:block">
+            <ul className="flex items-center gap-6">
+              {ENLACES.map((e) => (
+                <li key={e.label}>
+                  <a
+                    href={e.href}
+                    className="text-sm font-medium text-texto transition-colors hover:text-acento"
+                  >
+                    {e.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Derecha: búsqueda (desktop) + cuenta + carrito + hamburguesa */}
+          <div className="flex items-center gap-2">
+            <Busqueda className="hidden md:block md:w-56 lg:w-72" />
+
+            {/* Cuenta */}
+            <a
+              href="#"
+              className="rounded-full p-2 text-navy transition duration-150 hover:bg-acento-suave active:scale-95"
+            >
+              <span className="sr-only">Mi cuenta</span>
+              <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
+                <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
+                <path
+                  d="M4 20a8 8 0 0 1 16 0"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </a>
+
+            {/* Carrito con badge */}
+            <a
+              href="#"
+              className="relative rounded-full p-2 text-navy transition duration-150 hover:bg-acento-suave active:scale-95"
+            >
+              <span className="sr-only">Carrito, 0 productos</span>
+              <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
+                <path
+                  d="M3 4h2l2.4 12.3a1 1 0 0 0 1 .7h8.7a1 1 0 0 0 1-.8L21 8H6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <circle cx="9" cy="20" r="1.4" fill="currentColor" />
+                <circle cx="18" cy="20" r="1.4" fill="currentColor" />
+              </svg>
+              <span
+                aria-hidden="true"
+                className="absolute right-0 top-0 grid h-4 min-w-4 place-items-center rounded-full bg-acento px-1 text-[0.625rem] font-semibold leading-none text-superficie"
+              >
+                0
+              </span>
+            </a>
+
+            {/* Hamburguesa (solo móvil) */}
+            <button
+              type="button"
+              onClick={() => setAbierto((v) => !v)}
+              aria-label={abierto ? "Cerrar menú" : "Abrir menú"}
+              aria-expanded={abierto}
+              aria-controls="menu-movil"
+              className="rounded-full p-2 text-navy transition duration-150 hover:bg-acento-suave active:scale-95 md:hidden"
+            >
+              <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
+                {abierto ? (
+                  <path
+                    d="M6 6l12 12M18 6L6 18"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                ) : (
+                  <path
+                    d="M4 7h16M4 12h16M4 17h16"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Menú móvil desplegable */}
+        <div
+          id="menu-movil"
+          className={`${abierto ? "block" : "hidden"} border-t border-linea bg-superficie md:hidden`}
+        >
+          <div className="mx-auto max-w-7xl px-4 py-4">
+            <Busqueda className="mb-4" />
+            <nav aria-label="Principal móvil">
+              <ul className="flex flex-col">
+                {ENLACES.map((e) => (
+                  <li key={e.label}>
+                    <a
+                      href={e.href}
+                      onClick={() => setAbierto(false)}
+                      className="block rounded-lg px-2 py-3 text-base font-medium text-texto transition-colors hover:bg-acento-suave hover:text-acento"
+                    >
+                      {e.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
