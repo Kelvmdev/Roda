@@ -41,7 +41,8 @@
     "precio": 519900,
     "etiqueta": "Oferta",
     "destacado": true,
-    "descripcion": "Agarre confiable en seco y lluvia, con baja sonoridad. Comodidad y seguridad en cada viaje."
+    "descripcion": "Agarre confiable en seco y lluvia, con baja sonoridad. Comodidad y seguridad en cada viaje.",
+    "imagen": "https://res.cloudinary.com/dw26ujhoo/image/upload/v1781363142/lmhaq1cwcmglexip0oxy.jpg"
   },
   {
     "id": 4,
