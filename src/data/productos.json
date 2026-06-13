@@ -11,7 +11,8 @@
     "precio": 380998,
     "etiqueta": "Top",
     "destacado": true,
-    "descripcion": "Frenado seguro en mojado y kilometraje parejo. La opción premium para tu carro del día a día."
+    "descripcion": "Frenado seguro en mojado y kilometraje parejo. La opción premium para tu carro del día a día.",
+    "imagen": "https://res.cloudinary.com/dw26ujhoo/image/upload/v1781362839/qiagxjivfljakznvlts2.jpg"
   },
   {
     "id": 2,
