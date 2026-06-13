@@ -84,6 +84,9 @@ export function CarritoProvider({ children }) {
     vaciar,
     totalItems,
     subtotal,
+    // `cargado` = ya leímos localStorage. Útil para no decidir "carrito vacío"
+    // (y redirigir) durante el primer render, cuando items aún está en [].
+    cargado,
   };
 
   return (
