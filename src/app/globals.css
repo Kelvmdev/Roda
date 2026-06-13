@@ -37,6 +37,10 @@
 /* Landing siempre en tema claro: ignora el modo oscuro del sistema operativo. */
 html {
   color-scheme: light;
+  /* Si hay anclas internas (#seccion), el navegador deja este espacio arriba
+     para que el header sticky no tape el título al saltar (§6.4). ≈ alto del
+     header (barra superior + nav). */
+  scroll-padding-top: 6rem;
 }
 
 body {

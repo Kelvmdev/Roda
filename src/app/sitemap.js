@@ -13,11 +13,18 @@ const ultimaMod = statSync(
 // NO incluye /admin, /checkout ni /gracias (privadas / noindex) para no
 // contradecir el robots.txt ni los noindex (§7.4).
 export default function sitemap() {
-  const paginas = ["/", "/catalogo", "/ayuda"].map((ruta) => ({
+  const paginas = [
+    { ruta: "/", prioridad: 1 },
+    { ruta: "/catalogo", prioridad: 0.8 },
+    { ruta: "/ayuda", prioridad: 0.6 },
+    { ruta: "/envios-y-garantia", prioridad: 0.4 },
+    { ruta: "/terminos", prioridad: 0.3 },
+    { ruta: "/privacidad", prioridad: 0.3 },
+  ].map(({ ruta, prioridad }) => ({
     url: `${SITE_URL}${ruta}`,
     lastModified: ultimaMod,
     changeFrequency: "weekly",
-    priority: ruta === "/" ? 1 : 0.8,
+    priority: prioridad,
   }));
 
   const fichas = productos.map((p) => ({

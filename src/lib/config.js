@@ -19,6 +19,14 @@ export const WHATSAPP_DISPLAY = `+${WHATSAPP_NUMERO.slice(0, 2)} ${WHATSAPP_NUME
 // que /gracias pueda reabrirlo. Compartida para no repetir el string.
 export const CLAVE_WHATSAPP = "roda_whatsapp";
 
+// Cloudinary: cloud name + preset de subida SIN firmar. Son PÚBLICOS (no
+// secretos): el preset "unsigned" permite subir desde el navegador sin exponer
+// ninguna API key. Configurables por env; default a los valores actuales.
+export const CLOUDINARY_CLOUD =
+  process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "dw26ujhoo";
+export const CLOUDINARY_PRESET =
+  process.env.NEXT_PUBLIC_CLOUDINARY_PRESET || "portafolio_unsigned";
+
 // Arma un enlace wa.me. Si pasas texto, lo codifica para la URL.
 export const enlaceWhatsapp = (texto) =>
   `https://wa.me/${WHATSAPP_NUMERO}${

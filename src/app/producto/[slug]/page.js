@@ -3,7 +3,7 @@ import Link from "next/link";
 import productos from "@/data/productos.json";
 import { porSlug, similares, formatoPrecio, medidaDe } from "@/lib/catalogo";
 import { construirMeta, SITE_URL } from "@/lib/seo";
-import LlantaSVG from "@/components/LlantaSVG";
+import ImagenProducto from "@/components/ImagenProducto";
 import ProductCard from "@/components/ProductCard";
 import BotonAgregar from "@/components/BotonAgregar";
 
@@ -62,7 +62,7 @@ export default async function ProductoPage({ params }) {
       descripcion || `Llanta ${marca} ${modelo} medida ${medida}.`,
     brand: { "@type": "Brand", name: marca },
     sku: slug,
-    image: `${SITE_URL}/og`,
+    image: producto.imagen || `${SITE_URL}/og`,
     offers: {
       "@type": "Offer",
       price: precio,
@@ -88,11 +88,16 @@ export default async function ProductoPage({ params }) {
         </Link>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:gap-12">
-          {/* Imagen grande */}
-          <div className="grid place-items-center rounded-2xl border border-linea bg-superficie p-8">
-            <LlantaSVG
-              className="h-56 w-56 sm:h-72 sm:w-72"
-              label={`Llanta ${marca} ${modelo} ${medida}`}
+          {/* Imagen grande (principal = LCP → priority). */}
+          <div className="relative grid aspect-square place-items-center rounded-2xl border border-linea bg-superficie">
+            <ImagenProducto
+              imagen={producto.imagen}
+              alt={`Llanta ${marca} ${modelo} ${medida}`}
+              priority
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              ancho={800}
+              imgClassName="object-contain p-8"
+              svgClassName="h-56 w-56 sm:h-72 sm:w-72"
             />
           </div>
 

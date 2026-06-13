@@ -2,7 +2,10 @@
 
 import { useActionState, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import CampoFormulario from "@/components/CampoFormulario";
+import { CLOUDINARY_CLOUD, CLOUDINARY_PRESET } from "@/lib/config";
+import { imagenOptimizada } from "@/lib/img";
 
 const ESTADO_INICIAL = { error: null, errores: {} };
 
@@ -26,10 +29,40 @@ export default function FormularioProducto({ producto, accion, textoBoton = "Gua
     etiqueta: producto?.etiqueta ?? "",
     destacado: producto?.destacado ?? false,
     descripcion: producto?.descripcion ?? "",
+    imagen: producto?.imagen ?? "",
   });
+
+  // Estado de la subida de foto a Cloudinary.
+  const [subiendo, setSubiendo] = useState(false);
+  const [errorSubida, setErrorSubida] = useState(null);
 
   const set = (campo) => (ev) =>
     setDatos((prev) => ({ ...prev, [campo]: ev.target.value }));
+
+  // Sube el archivo elegido a Cloudinary (preset SIN firmar, desde el navegador)
+  // y guarda la secure_url resultante en el producto. Patrón de SOLE/portafolio.
+  async function subirFoto(ev) {
+    const archivo = ev.target.files?.[0];
+    if (!archivo) return;
+    setSubiendo(true);
+    setErrorSubida(null);
+    try {
+      const fd = new FormData();
+      fd.append("file", archivo);
+      fd.append("upload_preset", CLOUDINARY_PRESET);
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`,
+        { method: "POST", body: fd }
+      );
+      if (!res.ok) throw new Error("upload failed");
+      const json = await res.json();
+      setDatos((prev) => ({ ...prev, imagen: json.secure_url }));
+    } catch {
+      setErrorSubida("No se pudo subir la imagen. Intenta de nuevo.");
+    } finally {
+      setSubiendo(false);
+    }
+  }
 
   const err = estado?.errores ?? {};
   // Estilo común de los <select> (mismos tokens que CampoFormulario).
@@ -159,6 +192,61 @@ export default function FormularioProducto({ producto, accion, textoBoton = "Gua
               placeholder="Breve descripción que se muestra en la ficha del producto."
               className="mt-1.5 w-full rounded-xl border border-linea bg-superficie px-4 py-3 text-sm text-navy outline-none transition duration-150 placeholder:text-texto-suave/70 focus:ring-2 focus:ring-acento"
             />
+          </div>
+
+          {/* Foto (opcional) → se sube a Cloudinary y se guarda la URL. */}
+          <div className="sm:col-span-2">
+            <span className="block text-sm font-semibold text-navy">
+              Foto <span className="font-normal text-texto-suave">(opcional)</span>
+            </span>
+            {/* La URL viaja al Server Action por este campo oculto. */}
+            <input type="hidden" name="imagen" value={datos.imagen} />
+
+            <div className="mt-1.5 flex items-center gap-4">
+              {/* Vista previa (o marcador "sin foto"). */}
+              <div className="relative grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-xl border border-linea bg-fondo">
+                {datos.imagen ? (
+                  <Image
+                    src={imagenOptimizada(datos.imagen, 160)}
+                    alt="Vista previa de la foto"
+                    fill
+                    sizes="80px"
+                    className="object-contain p-1"
+                  />
+                ) : (
+                  <span className="text-xs text-texto-suave">Sin foto</span>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label
+                  htmlFor="foto"
+                  className="inline-flex w-fit cursor-pointer items-center rounded-full border border-linea px-4 py-2 text-sm font-semibold text-navy transition duration-150 hover:bg-acento-suave active:scale-95"
+                >
+                  {subiendo ? "Subiendo…" : datos.imagen ? "Cambiar foto" : "Subir foto"}
+                </label>
+                <input
+                  id="foto"
+                  type="file"
+                  accept="image/*"
+                  onChange={subirFoto}
+                  disabled={subiendo}
+                  className="sr-only"
+                />
+                {datos.imagen && !subiendo && (
+                  <button
+                    type="button"
+                    onClick={() => setDatos((prev) => ({ ...prev, imagen: "" }))}
+                    className="w-fit text-xs font-medium text-error hover:underline"
+                  >
+                    Quitar foto
+                  </button>
+                )}
+                <p aria-live="polite" className="min-h-4 text-xs text-error">
+                  {errorSubida}
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Destacado */}

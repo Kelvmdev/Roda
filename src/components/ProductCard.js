@@ -1,6 +1,6 @@
 // Tarjeta de producto reutilizable (home "Más vendidas", catálogo, similares) → DRY §5.2.
 import Link from "next/link";
-import LlantaSVG from "@/components/LlantaSVG";
+import ImagenProducto from "@/components/ImagenProducto";
 import BotonAgregar from "@/components/BotonAgregar";
 import { formatoPrecio, medidaDe } from "@/lib/catalogo";
 
@@ -29,9 +29,16 @@ export default function ProductCard({ producto }) {
         href={href}
         aria-hidden="true"
         tabIndex={-1}
-        className="mb-4 grid place-items-center rounded-xl bg-fondo py-6"
+        className="relative mb-4 grid aspect-[16/10] place-items-center overflow-hidden rounded-xl bg-fondo"
       >
-        <LlantaSVG />
+        <ImagenProducto
+          imagen={producto.imagen}
+          alt={`${marca} ${modelo} ${medida}`}
+          decorativa
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+          ancho={500}
+          svgClassName="h-24 w-24"
+        />
       </Link>
 
       {/* Datos */}

@@ -26,6 +26,7 @@ function leerCampos(formData) {
     etiqueta: txt("etiqueta"), // "" = ninguna
     destacado: formData.get("destacado") != null,
     descripcion: txt("descripcion"),
+    imagen: txt("imagen"), // URL de Cloudinary (o "" si no hay foto)
   };
 }
 
@@ -57,6 +58,7 @@ function construir(d, slug, id) {
     etiqueta: d.etiqueta || null,
     destacado: d.destacado,
     descripcion: d.descripcion,
+    imagen: d.imagen || null,
   };
 }
 

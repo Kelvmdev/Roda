@@ -1,7 +1,6 @@
 import { Barlow_Condensed, Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Chrome from "@/components/Chrome";
 import { CarritoProvider } from "@/context/CarritoContext";
 import { construirMeta, SITE_URL } from "@/lib/seo";
 
@@ -46,11 +45,7 @@ export default function RootLayout({ children }) {
           >
             Saltar al contenido
           </a>
-          <Header />
-          <main id="main" tabIndex={-1} className="flex flex-1 flex-col">
-            {children}
-          </main>
-          <Footer />
+          <Chrome>{children}</Chrome>
         </CarritoProvider>
       </body>
     </html>
