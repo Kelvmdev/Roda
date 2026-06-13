@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import FormularioProducto from "@/components/FormularioProducto";
-import { leerProductos } from "@/lib/productos-fs";
+import { leerProductos } from "@/lib/productos-store";
 import { actualizarProducto } from "../acciones";
 
 export const metadata = {

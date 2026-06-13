@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { leerProductos } from "@/lib/productos-fs";
+import { leerProductos } from "@/lib/productos-store";
 import { medidaDe, formatoPrecio } from "@/lib/catalogo";
 import BotonBorrarProducto from "@/components/BotonBorrarProducto";
 import { borrarProducto } from "./productos/acciones";
@@ -14,7 +14,8 @@ export const metadata = {
 // muestra el resultado de sus propios cambios al instante.
 export const dynamic = "force-dynamic";
 
-export default async function AdminPanel() {
+export default async function AdminPanel({ searchParams }) {
+  const sp = await searchParams;
   const productos = await leerProductos();
 
   return (
@@ -40,6 +41,17 @@ export default async function AdminPanel() {
             </button>
           </form>
         </div>
+
+        {/* Aviso de error (p. ej. si falla un borrado contra GitHub). */}
+        {sp?.error && (
+          <p
+            role="alert"
+            aria-live="assertive"
+            className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+          >
+            {sp.error}
+          </p>
+        )}
 
         <div className="mt-6">
           <Link

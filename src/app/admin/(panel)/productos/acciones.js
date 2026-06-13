@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { leerProductos, escribirProductos } from "@/lib/productos-fs";
+import { leerProductos, guardarProductos } from "@/lib/productos-store";
 import { slugDe } from "@/lib/catalogo";
 import { exigirAdmin } from "@/lib/auth";
 
@@ -98,9 +98,11 @@ export async function crearProducto(estadoPrevio, formData) {
   try {
     // Validamos TODO antes de escribir (§6.4): el archivo solo se toca con
     // datos correctos, nunca queda a medias.
-    await escribirProductos([...productos, nuevo]);
+    await guardarProductos([...productos, nuevo], `CMS: agrega llanta ${slug}`);
   } catch {
-    return { error: "No se pudo guardar. El catálogo no se modificó." };
+    return {
+      error: "No se pudo guardar (revisa el token/permiso de GitHub). El catálogo no se modificó.",
+    };
   }
 
   revalidar();
@@ -144,9 +146,11 @@ export async function actualizarProducto(estadoPrevio, formData) {
   copia[indice] = { ...productos[indice], ...construir(datos, slug, productos[indice].id) };
 
   try {
-    await escribirProductos(copia);
+    await guardarProductos(copia, `CMS: edita llanta ${slug}`);
   } catch {
-    return { error: "No se pudo guardar. El catálogo no se modificó." };
+    return {
+      error: "No se pudo guardar (revisa el token/permiso de GitHub). El catálogo no se modificó.",
+    };
   }
 
   revalidar();
@@ -154,7 +158,8 @@ export async function actualizarProducto(estadoPrevio, formData) {
 }
 
 // Borrar: firma (formData) porque se usa directo como action de un <form>,
-// sin useActionState.
+// sin useActionState. Como no hay UI de error propia, en caso de fallo
+// redirigimos con ?error=... y el panel muestra un aviso.
 export async function borrarProducto(formData) {
   await exigirAdmin();
 
@@ -163,15 +168,15 @@ export async function borrarProducto(formData) {
   try {
     productos = await leerProductos();
   } catch {
-    redirect("/admin");
+    redirect("/admin?error=No+se+pudo+leer+el+cat%C3%A1logo.");
   }
 
   const filtrados = productos.filter((p) => p.slug !== slug);
   try {
-    await escribirProductos(filtrados);
+    await guardarProductos(filtrados, `CMS: borra llanta ${slug}`);
   } catch {
-    // Si falla la escritura, no pasa nada: el archivo queda intacto.
-    redirect("/admin");
+    // Si falla, el archivo queda intacto (§6.4): no se borró nada.
+    redirect("/admin?error=No+se+pudo+borrar.+El+cat%C3%A1logo+no+se+modific%C3%B3.");
   }
 
   revalidar();
