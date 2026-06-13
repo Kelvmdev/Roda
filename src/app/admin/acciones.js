@@ -5,7 +5,7 @@
 // se compara aquí y nunca se expone al navegador.
 
 import { redirect } from "next/navigation";
-import { establecerSesion, eliminarSesion } from "@/lib/auth";
+import { establecerSesion, eliminarSesion, verificarClave } from "@/lib/auth";
 
 // Recibe el formulario de login. Firma compatible con useActionState:
 // (estadoPrevio, formData). Devuelve { error } si algo falla.
@@ -18,12 +18,18 @@ export async function iniciarSesion(estadoPrevio, formData) {
   if (typeof clave !== "string" || clave.length === 0) {
     return { error: "Escribe la contraseña." };
   }
-  if (clave !== process.env.ADMIN_PASSWORD) {
+  // Comparación en tiempo constante (no `!==`).
+  if (!verificarClave(clave)) {
     return { error: "Contraseña incorrecta." };
   }
 
-  // Correcta: creamos la cookie de sesión y entramos al panel.
-  await establecerSesion();
+  // Correcta: creamos la cookie de sesión firmada. Si falta SESSION_SECRET,
+  // establecerSesion lanza (y lo deja claro en el log) → mensaje al usuario.
+  try {
+    await establecerSesion();
+  } catch {
+    return { error: "No se pudo crear la sesión. Revisa SESSION_SECRET en el servidor." };
+  }
   redirect("/admin");
 }
 

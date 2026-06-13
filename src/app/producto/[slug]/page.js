@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import productos from "@/data/productos.json";
 import { porSlug, similares, formatoPrecio, medidaDe } from "@/lib/catalogo";
-import { construirMeta } from "@/lib/seo";
+import { construirMeta, SITE_URL } from "@/lib/seo";
 import LlantaSVG from "@/components/LlantaSVG";
 import ProductCard from "@/components/ProductCard";
 import BotonAgregar from "@/components/BotonAgregar";
@@ -51,8 +51,34 @@ export default async function ProductoPage({ params }) {
     ["Rin", producto.rin],
   ];
 
+  // Datos estructurados Product + Offer (§6.2): habilitan resultados
+  // enriquecidos en Google (precio, disponibilidad, marca…). Es un JSON que el
+  // buscador lee; no se ve en la página.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: `${marca} ${modelo} ${medida}`,
+    description:
+      descripcion || `Llanta ${marca} ${modelo} medida ${medida}.`,
+    brand: { "@type": "Brand", name: marca },
+    sku: slug,
+    image: `${SITE_URL}/og`,
+    offers: {
+      "@type": "Offer",
+      price: precio,
+      priceCurrency: "COP",
+      availability: "https://schema.org/InStock",
+      url: `${SITE_URL}/producto/${slug}`,
+    },
+  };
+
   return (
     <div className="bg-fondo">
+      {/* Datos estructurados para Google (no visible). */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="mx-auto max-w-7xl px-4 py-8 lg:py-12">
         <Link
           href="/catalogo"
