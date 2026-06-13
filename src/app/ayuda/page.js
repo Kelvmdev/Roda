@@ -1,11 +1,14 @@
 import BotonWhatsApp from "@/components/BotonWhatsApp";
 import contenido from "@/data/contenido.json";
+import { construirMeta } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = construirMeta({
+  clave: "ayuda",
   title: "Ayuda — RODA",
   description:
     "Preguntas frecuentes sobre medidas, instalación, garantía y formas de pago en RODA. ¿Dudas? Escríbenos por WhatsApp.",
-};
+  path: "/ayuda",
+});
 
 export default function AyudaPage() {
   const faq = contenido.faq;

@@ -6,6 +6,7 @@ import contenido from "@/data/contenido.json";
 import { construirMeta } from "@/lib/seo";
 
 export const metadata = construirMeta({
+  clave: "home",
   title: "RODA — Llantas para carro y moto con instalación en Medellín",
   description:
     "Encuentra tu medida exacta y compra llantas para carro y moto con asesoría, garantía e instalación incluida. Paga contraentrega o por transferencia. Envío en Medellín.",

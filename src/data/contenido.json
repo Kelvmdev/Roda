@@ -84,5 +84,111 @@
     "Instalación incluida",
     "Garantía hasta 5 años",
     "Envío 24–48 h"
-  ]
+  ],
+  "legales": {
+    "enviosYGarantia": {
+      "titulo": "Envíos y garantía",
+      "intro": "Cómo entregamos e instalamos tus llantas, y qué cubre la garantía.",
+      "secciones": [
+        {
+          "titulo": "Envíos",
+          "texto": "Hacemos entregas en Medellín y su área metropolitana. El tiempo habitual es de 24 a 48 horas hábiles después de confirmar tu pedido.\n\nCoordinamos el día, la hora y el punto de entrega contigo por WhatsApp."
+        },
+        {
+          "titulo": "Instalación incluida",
+          "texto": "El precio de cada llanta incluye el montaje y el balanceo. No pagas aparte por la instalación."
+        },
+        {
+          "titulo": "Garantía",
+          "texto": "Todas nuestras llantas cuentan con la garantía del fabricante (hasta 5 años según la línea) contra defectos de fabricación.\n\nLa garantía no cubre daños por mal uso, pinchazos, golpes, desgaste normal ni montajes hechos por terceros.\n\nSi crees que tu llanta tiene un defecto de fábrica, escríbenos por WhatsApp y te acompañamos en el proceso ante el fabricante."
+        },
+        {
+          "titulo": "Cambios",
+          "texto": "Si la medida que recibiste no corresponde a la que pediste, coordinamos el cambio sin costo. Escríbenos apenas la recibas."
+        }
+      ]
+    },
+    "terminos": {
+      "titulo": "Términos y condiciones",
+      "intro": "Las reglas básicas al comprar en RODA.",
+      "secciones": [
+        {
+          "titulo": "Aceptación",
+          "texto": "Al realizar un pedido en RODA aceptas estos términos y condiciones."
+        },
+        {
+          "titulo": "Pedidos y precios",
+          "texto": "Los precios están en pesos colombianos (COP) e incluyen la instalación. Pueden cambiar sin previo aviso.\n\nConfirmamos la disponibilidad de cada producto por WhatsApp antes de coordinar la entrega."
+        },
+        {
+          "titulo": "Pagos",
+          "texto": "Aceptamos pago contraentrega o por transferencia / Nequi. No procesamos pagos en línea ni solicitamos datos de tarjeta en el sitio."
+        },
+        {
+          "titulo": "Productos",
+          "texto": "Las imágenes son de referencia. Lo que define el producto es su medida y especificación: marca, modelo, ancho, perfil y rin."
+        },
+        {
+          "titulo": "Responsabilidad",
+          "texto": "RODA no se hace responsable por daños derivados de un uso indebido de las llantas o de instalaciones realizadas por terceros."
+        },
+        {
+          "titulo": "Contacto",
+          "texto": "Para cualquier duda sobre estos términos, escríbenos por WhatsApp."
+        }
+      ]
+    },
+    "privacidad": {
+      "titulo": "Política de privacidad",
+      "intro": "Qué datos te pedimos y para qué los usamos.",
+      "secciones": [
+        {
+          "titulo": "Qué datos pedimos",
+          "texto": "Al finalizar un pedido te pedimos: nombre, teléfono o WhatsApp, correo, ciudad y dirección de entrega."
+        },
+        {
+          "titulo": "Para qué los usamos",
+          "texto": "Únicamente para coordinar tu pedido: confirmar la compra, programar la entrega e instalación y acordar el pago, por WhatsApp."
+        },
+        {
+          "titulo": "Pagos",
+          "texto": "No procesamos pagos en línea ni almacenamos datos de tarjetas. El pago se hace contraentrega o por transferencia."
+        },
+        {
+          "titulo": "Con quién compartimos tus datos",
+          "texto": "No vendemos ni compartimos tus datos con terceros. Solo usamos lo necesario para entregarte el pedido."
+        },
+        {
+          "titulo": "Tus derechos",
+          "texto": "Puedes pedirnos que actualicemos o eliminemos tus datos en cualquier momento escribiéndonos por WhatsApp."
+        }
+      ]
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "RODA — Llantas para carro y moto con instalación en Medellín",
+      "description": "Encuentra tu medida exacta y compra llantas para carro y moto con asesoría, garantía e instalación incluida. Paga contraentrega o por transferencia. Envío en Medellín."
+    },
+    "catalogo": {
+      "title": "Catálogo de llantas para carro y moto — RODA",
+      "description": "Explora todas nuestras llantas para carro y moto. Filtra por tipo, marca y medida, y encuentra la tuya con instalación incluida en Medellín."
+    },
+    "ayuda": {
+      "title": "Ayuda — RODA",
+      "description": "Preguntas frecuentes sobre medidas, instalación, garantía y formas de pago en RODA. ¿Dudas? Escríbenos por WhatsApp."
+    },
+    "enviosYGarantia": {
+      "title": "Envíos y garantía — RODA",
+      "description": "Tiempos de envío en Medellín, instalación incluida y garantía del fabricante de tus llantas RODA."
+    },
+    "terminos": {
+      "title": "Términos y condiciones — RODA",
+      "description": "Términos y condiciones de compra en RODA: precios, pagos contraentrega o por transferencia, y uso del sitio."
+    },
+    "privacidad": {
+      "title": "Política de privacidad — RODA",
+      "description": "Qué datos te pedimos en el checkout y para qué los usamos: coordinar tu pedido por WhatsApp. No procesamos pagos en línea."
+    }
+  }
 }

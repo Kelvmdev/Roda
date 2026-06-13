@@ -16,7 +16,8 @@ export default function PaginaLegal({ titulo, intro, secciones }) {
               <h2 className="font-display text-xl font-bold text-navy">
                 {s.titulo}
               </h2>
-              {s.parrafos.map((parrafo, i) => (
+              {/* El texto puede traer varios párrafos separados por línea en blanco. */}
+              {s.texto.split(/\n\s*\n/).map((parrafo, i) => (
                 <p
                   key={i}
                   className="mt-2 text-sm leading-relaxed text-texto-suave"

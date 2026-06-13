@@ -57,9 +57,111 @@ export default function FormularioContenido({ contenido, accion }) {
       fichaBadges: p.fichaBadges.map((b, idx) => (idx === i ? ev.target.value : b)),
     }));
 
+  // Legales: editar título/intro, editar/agregar/quitar secciones de un doc.
+  const setLegal = (doc, campo) => (ev) =>
+    setDatos((p) => ({
+      ...p,
+      legales: { ...p.legales, [doc]: { ...p.legales[doc], [campo]: ev.target.value } },
+    }));
+  const setSeccion = (doc, i, campo) => (ev) =>
+    setDatos((p) => ({
+      ...p,
+      legales: {
+        ...p.legales,
+        [doc]: {
+          ...p.legales[doc],
+          secciones: p.legales[doc].secciones.map((s, idx) =>
+            idx === i ? { ...s, [campo]: ev.target.value } : s
+          ),
+        },
+      },
+    }));
+  const agregarSeccion = (doc) => () =>
+    setDatos((p) => ({
+      ...p,
+      legales: {
+        ...p.legales,
+        [doc]: {
+          ...p.legales[doc],
+          secciones: [...p.legales[doc].secciones, { titulo: "", texto: "" }],
+        },
+      },
+    }));
+  const quitarSeccion = (doc, i) => () =>
+    setDatos((p) => ({
+      ...p,
+      legales: {
+        ...p.legales,
+        [doc]: {
+          ...p.legales[doc],
+          secciones: p.legales[doc].secciones.filter((_, idx) => idx !== i),
+        },
+      },
+    }));
+
+  // SEO: title/description por página.
+  const setSeo = (clave, campo) => (ev) =>
+    setDatos((p) => ({
+      ...p,
+      seo: { ...p.seo, [clave]: { ...p.seo[clave], [campo]: ev.target.value } },
+    }));
+
   const claseFieldset =
     "rounded-2xl border border-linea bg-superficie p-6";
   const claseLegend = "px-1 font-display text-lg font-bold text-navy";
+
+  // Editor de un documento legal (título + intro + secciones editables).
+  const renderLegal = (doc, etiqueta) => (
+    <fieldset className={claseFieldset}>
+      <legend className={claseLegend}>{etiqueta}</legend>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <CampoFormulario id={`leg-${doc}-titulo`} etiqueta="Título" valor={datos.legales[doc].titulo} onChange={setLegal(doc, "titulo")} />
+        <CampoFormulario id={`leg-${doc}-intro`} etiqueta="Intro" valor={datos.legales[doc].intro} onChange={setLegal(doc, "intro")} />
+      </div>
+      <div className="mt-4 flex flex-col gap-4">
+        {datos.legales[doc].secciones.map((s, i) => (
+          <div key={i} className="rounded-xl border border-linea p-4">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-sm font-semibold text-navy">Sección {i + 1}</span>
+              <button type="button" onClick={quitarSeccion(doc, i)} className="text-xs font-medium text-error hover:underline">
+                Quitar
+              </button>
+            </div>
+            <div className="mt-2 flex flex-col gap-4">
+              <CampoFormulario id={`leg-${doc}-${i}-titulo`} etiqueta="Encabezado" valor={s.titulo} onChange={setSeccion(doc, i, "titulo")} />
+              <div>
+                <label htmlFor={`leg-${doc}-${i}-texto`} className="block text-sm font-semibold text-navy">
+                  Texto
+                </label>
+                <textarea
+                  id={`leg-${doc}-${i}-texto`}
+                  rows={4}
+                  value={s.texto}
+                  onChange={setSeccion(doc, i, "texto")}
+                  className="mt-1.5 w-full rounded-xl border border-linea bg-superficie px-4 py-3 text-sm text-navy outline-none transition duration-150 focus:ring-2 focus:ring-acento"
+                />
+                <p className="mt-1 text-xs text-texto-suave">
+                  Deja una línea en blanco para separar párrafos.
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+        <button type="button" onClick={agregarSeccion(doc)} className="w-fit rounded-full border border-linea px-4 py-2 text-sm font-semibold text-navy transition duration-150 hover:bg-acento-suave active:scale-95">
+          + Agregar sección
+        </button>
+      </div>
+    </fieldset>
+  );
+
+  const SEO_PAGINAS = [
+    { clave: "home", nombre: "Home" },
+    { clave: "catalogo", nombre: "Catálogo" },
+    { clave: "ayuda", nombre: "Ayuda" },
+    { clave: "enviosYGarantia", nombre: "Envíos y garantía" },
+    { clave: "terminos", nombre: "Términos" },
+    { clave: "privacidad", nombre: "Privacidad" },
+  ];
 
   return (
     <form action={enviar} className="flex flex-col gap-6">
@@ -188,6 +290,25 @@ export default function FormularioContenido({ contenido, accion }) {
         <div className="grid gap-4 sm:grid-cols-3">
           {datos.fichaBadges.map((b, i) => (
             <CampoFormulario key={i} id={`badge-${i}`} etiqueta={`Badge ${i + 1}`} valor={b} onChange={setBadge(i)} />
+          ))}
+        </div>
+      </fieldset>
+
+      {renderLegal("enviosYGarantia", "Legal · Envíos y garantía")}
+      {renderLegal("terminos", "Legal · Términos y condiciones")}
+      {renderLegal("privacidad", "Legal · Política de privacidad")}
+
+      <fieldset className={claseFieldset}>
+        <legend className={claseLegend}>SEO (título y descripción por página)</legend>
+        <div className="flex flex-col gap-5">
+          {SEO_PAGINAS.map(({ clave, nombre }) => (
+            <div key={clave}>
+              <p className="text-sm font-semibold text-navy">{nombre}</p>
+              <div className="mt-1.5 grid gap-4 sm:grid-cols-2">
+                <CampoFormulario id={`seo-${clave}-title`} etiqueta="Título (title)" valor={datos.seo[clave].title} onChange={setSeo(clave, "title")} />
+                <CampoFormulario id={`seo-${clave}-desc`} etiqueta="Descripción" valor={datos.seo[clave].description} onChange={setSeo(clave, "description")} />
+              </div>
+            </div>
           ))}
         </div>
       </fieldset>

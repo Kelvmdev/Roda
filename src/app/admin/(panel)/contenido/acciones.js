@@ -4,6 +4,23 @@ import { revalidatePath } from "next/cache";
 import { leerContenido, guardarContenido } from "@/lib/contenido-store";
 import { exigirAdmin } from "@/lib/auth";
 
+// Fusiona cada documento legal (título/intro/secciones[]) preservando lo que el
+// formulario no envíe. Las secciones se reemplazan completas si vienen.
+function fusionarLegales(orig, edit) {
+  const docs = ["enviosYGarantia", "terminos", "privacidad"];
+  const salida = { ...orig };
+  for (const doc of docs) {
+    salida[doc] = {
+      ...orig[doc],
+      ...edit?.[doc],
+      secciones: Array.isArray(edit?.[doc]?.secciones)
+        ? edit[doc].secciones
+        : orig[doc].secciones,
+    };
+  }
+  return salida;
+}
+
 // Recibe el contenido editado (como JSON en un campo oculto) y lo guarda.
 // Firma compatible con useActionState: (estadoPrevio, formData).
 export async function guardarContenidoAccion(estadoPrevio, formData) {
@@ -47,6 +64,8 @@ export async function guardarContenidoAccion(estadoPrevio, formData) {
     fichaBadges: Array.isArray(editado.fichaBadges)
       ? editado.fichaBadges
       : original.fichaBadges,
+    legales: fusionarLegales(original.legales, editado.legales),
+    seo: { ...original.seo, ...editado.seo },
   };
 
   try {

@@ -6,6 +6,7 @@ import FiltrosCatalogo from "@/components/FiltrosCatalogo";
 import { construirMeta } from "@/lib/seo";
 
 export const metadata = construirMeta({
+  clave: "catalogo",
   title: "Catálogo de llantas para carro y moto — RODA",
   description:
     "Explora todas nuestras llantas para carro y moto. Filtra por tipo, marca y medida, y encuentra la tuya con instalación incluida en Medellín.",
