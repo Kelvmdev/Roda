@@ -26,6 +26,37 @@ export default function FormularioContenido({ contenido, accion }) {
       ),
     }));
 
+  // FAQ: editar campos sueltos, editar una pregunta, agregar y quitar.
+  const setFaq = (campo) => (ev) =>
+    setDatos((p) => ({ ...p, faq: { ...p.faq, [campo]: ev.target.value } }));
+  const setPregunta = (i, campo) => (ev) =>
+    setDatos((p) => ({
+      ...p,
+      faq: {
+        ...p.faq,
+        preguntas: p.faq.preguntas.map((q, idx) =>
+          idx === i ? { ...q, [campo]: ev.target.value } : q
+        ),
+      },
+    }));
+  const agregarPregunta = () =>
+    setDatos((p) => ({
+      ...p,
+      faq: { ...p.faq, preguntas: [...p.faq.preguntas, { pregunta: "", respuesta: "" }] },
+    }));
+  const quitarPregunta = (i) =>
+    setDatos((p) => ({
+      ...p,
+      faq: { ...p.faq, preguntas: p.faq.preguntas.filter((_, idx) => idx !== i) },
+    }));
+
+  // Badges de la ficha (array de strings).
+  const setBadge = (i) => (ev) =>
+    setDatos((p) => ({
+      ...p,
+      fichaBadges: p.fichaBadges.map((b, idx) => (idx === i ? ev.target.value : b)),
+    }));
+
   const claseFieldset =
     "rounded-2xl border border-linea bg-superficie p-6";
   const claseLegend = "px-1 font-display text-lg font-bold text-navy";
@@ -90,6 +121,74 @@ export default function FormularioContenido({ contenido, accion }) {
         <div className="grid gap-4 sm:grid-cols-2">
           <CampoFormulario id="mv-titulo" etiqueta="Título de la sección" valor={datos.masVendidas.titulo} onChange={set("masVendidas", "titulo")} />
           <CampoFormulario id="mv-enlace" etiqueta="Texto del enlace" valor={datos.masVendidas.enlace} onChange={set("masVendidas", "enlace")} />
+        </div>
+      </fieldset>
+
+      <fieldset className={claseFieldset}>
+        <legend className={claseLegend}>Preguntas frecuentes (/ayuda)</legend>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <CampoFormulario id="faq-titulo" etiqueta="Título" valor={datos.faq.titulo} onChange={setFaq("titulo")} />
+          <CampoFormulario id="faq-intro" etiqueta="Intro" valor={datos.faq.intro} onChange={setFaq("intro")} />
+          <CampoFormulario id="faq-ctaTitulo" etiqueta="Tarjeta final · Título" valor={datos.faq.ctaTitulo} onChange={setFaq("ctaTitulo")} />
+          <CampoFormulario id="faq-ctaTexto" etiqueta="Tarjeta final · Texto" valor={datos.faq.ctaTexto} onChange={setFaq("ctaTexto")} />
+        </div>
+
+        <div className="mt-4 flex flex-col gap-4">
+          {datos.faq.preguntas.map((q, i) => (
+            <div key={i} className="rounded-xl border border-linea p-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-sm font-semibold text-navy">Pregunta {i + 1}</span>
+                <button
+                  type="button"
+                  onClick={() => quitarPregunta(i)}
+                  className="text-xs font-medium text-error hover:underline"
+                >
+                  Quitar
+                </button>
+              </div>
+              <div className="mt-2 grid gap-4">
+                <CampoFormulario id={`faq-q-${i}`} etiqueta="Pregunta" valor={q.pregunta} onChange={setPregunta(i, "pregunta")} />
+                <CampoFormulario id={`faq-r-${i}`} etiqueta="Respuesta" valor={q.respuesta} onChange={setPregunta(i, "respuesta")} />
+              </div>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={agregarPregunta}
+            className="w-fit rounded-full border border-linea px-4 py-2 text-sm font-semibold text-navy transition duration-150 hover:bg-acento-suave active:scale-95"
+          >
+            + Agregar pregunta
+          </button>
+        </div>
+      </fieldset>
+
+      <fieldset className={claseFieldset}>
+        <legend className={claseLegend}>Footer</legend>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <CampoFormulario id="ft-tagline" etiqueta="Tagline" valor={datos.footer.tagline} onChange={set("footer", "tagline")} />
+          <CampoFormulario id="ft-credito" etiqueta="Crédito (nombre)" valor={datos.footer.credito} onChange={set("footer", "credito")} />
+          <CampoFormulario id="ft-tienda" etiqueta="Título columna «Tienda»" valor={datos.footer.tituloTienda} onChange={set("footer", "tituloTienda")} />
+          <CampoFormulario id="ft-ayuda" etiqueta="Título columna «Ayuda»" valor={datos.footer.tituloAyuda} onChange={set("footer", "tituloAyuda")} />
+          <CampoFormulario id="ft-contacto" etiqueta="Título columna «Contacto»" valor={datos.footer.tituloContacto} onChange={set("footer", "tituloContacto")} />
+          <CampoFormulario id="ft-copy" etiqueta="Línea de copyright" valor={datos.footer.copyright} onChange={set("footer", "copyright")} />
+        </div>
+      </fieldset>
+
+      <fieldset className={claseFieldset}>
+        <legend className={claseLegend}>Contacto</legend>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <CampoFormulario id="ct-whatsapp" etiqueta="WhatsApp (solo dígitos)" valor={datos.contacto.whatsapp} onChange={set("contacto", "whatsapp")} inputMode="numeric" />
+          <CampoFormulario id="ct-telefono" etiqueta="Teléfono visible" valor={datos.contacto.telefono} onChange={set("contacto", "telefono")} />
+          <CampoFormulario id="ct-ciudad" etiqueta="Ciudad" valor={datos.contacto.ciudad} onChange={set("contacto", "ciudad")} />
+        </div>
+      </fieldset>
+
+      <fieldset className={claseFieldset}>
+        <legend className={claseLegend}>Badges de la ficha de producto</legend>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {datos.fichaBadges.map((b, i) => (
+            <CampoFormulario key={i} id={`badge-${i}`} etiqueta={`Badge ${i + 1}`} valor={b} onChange={setBadge(i)} />
+          ))}
         </div>
       </fieldset>
 

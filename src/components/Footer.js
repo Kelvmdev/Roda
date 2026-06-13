@@ -2,6 +2,7 @@ import Link from "next/link";
 import Logo from "./Logo";
 import BotonWhatsApp from "./BotonWhatsApp";
 import { WHATSAPP_TEL, WHATSAPP_DISPLAY } from "@/lib/config";
+import contenido from "@/data/contenido.json";
 
 // Enlaces por columna (una sola fuente de verdad, DRY §5.2).
 const TIENDA = [
@@ -43,6 +44,7 @@ function Columna({ titulo, enlaces }) {
 }
 
 export default function Footer() {
+  const { footer, contacto } = contenido;
   return (
     <footer className="bg-navy text-superficie">
       <div className="mx-auto max-w-7xl px-4 py-12">
@@ -50,9 +52,7 @@ export default function Footer() {
           {/* Marca + crédito */}
           <div className="flex flex-col gap-3">
             <Logo variante="claro" />
-            <p className="text-sm text-superficie/80">
-              El agarre que te lleva a casa.
-            </p>
+            <p className="text-sm text-superficie/80">{footer.tagline}</p>
             <p className="text-xs text-superficie/70">
               Sitio por{" "}
               <a
@@ -61,19 +61,19 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="font-medium underline transition-colors hover:text-superficie"
               >
-                Kervin Martínez
+                {footer.credito}
               </a>
             </p>
           </div>
 
           {/* Tienda + Ayuda */}
-          <Columna titulo="Tienda" enlaces={TIENDA} />
-          <Columna titulo="Ayuda" enlaces={AYUDA} />
+          <Columna titulo={footer.tituloTienda} enlaces={TIENDA} />
+          <Columna titulo={footer.tituloAyuda} enlaces={AYUDA} />
 
           {/* Contacto */}
           <div className="flex flex-col gap-3">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-superficie/70">
-              Contacto
+              {footer.tituloContacto}
             </h2>
             <BotonWhatsApp className="w-fit px-5 py-2.5 text-sm" />
             <a
@@ -82,13 +82,13 @@ export default function Footer() {
             >
               {WHATSAPP_DISPLAY}
             </a>
-            <p className="text-sm text-superficie/80">Medellín, Colombia</p>
+            <p className="text-sm text-superficie/80">{contacto.ciudad}</p>
           </div>
         </div>
 
         {/* Línea inferior */}
         <div className="mt-10 border-t border-superficie/15 pt-6 text-center text-xs text-superficie/70">
-          © 2026 RODA. Rueda seguro.
+          {footer.copyright}
         </div>
       </div>
     </footer>

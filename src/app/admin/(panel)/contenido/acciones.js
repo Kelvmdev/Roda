@@ -35,6 +35,18 @@ export async function guardarContenidoAccion(estadoPrevio, formData) {
       ? editado.confianza
       : original.confianza,
     masVendidas: { ...original.masVendidas, ...editado.masVendidas },
+    faq: {
+      ...original.faq,
+      ...editado.faq,
+      preguntas: Array.isArray(editado.faq?.preguntas)
+        ? editado.faq.preguntas
+        : original.faq.preguntas,
+    },
+    footer: { ...original.footer, ...editado.footer },
+    contacto: { ...original.contacto, ...editado.contacto },
+    fichaBadges: Array.isArray(editado.fichaBadges)
+      ? editado.fichaBadges
+      : original.fichaBadges,
   };
 
   try {

@@ -42,5 +42,47 @@
   "masVendidas": {
     "titulo": "Más vendidas",
     "enlace": "Ver todo el catálogo"
-  }
+  },
+  "faq": {
+    "titulo": "¿En qué te ayudamos?",
+    "intro": "Preguntas frecuentes. Si no resolvemos tu duda, escríbenos.",
+    "ctaTitulo": "¿Sigues con dudas?",
+    "ctaTexto": "Te respondemos por WhatsApp.",
+    "preguntas": [
+      {
+        "pregunta": "¿Cómo sé qué medida necesito?",
+        "respuesta": "La medida está escrita en el costado de tu llanta actual, con el formato 205/55 R16 (ancho / perfil rin). Cópiala tal cual en el buscador del catálogo. Si tienes dudas, escríbenos y te ayudamos a encontrarla."
+      },
+      {
+        "pregunta": "¿La instalación está incluida?",
+        "respuesta": "Sí. El precio incluye montaje y balanceo en Medellín. Coordinamos el día y el lugar contigo por WhatsApp."
+      },
+      {
+        "pregunta": "¿Qué garantía tienen las llantas?",
+        "respuesta": "Todas nuestras llantas cuentan con la garantía del fabricante (hasta 5 años según la línea) contra defectos de fabricación."
+      },
+      {
+        "pregunta": "¿Cómo puedo pagar?",
+        "respuesta": "Puedes pagar contraentrega o por transferencia / Nequi. No cobramos en línea: coordinamos el pago cuando confirmas tu pedido por WhatsApp."
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "El agarre que te lleva a casa.",
+    "tituloTienda": "Tienda",
+    "tituloAyuda": "Ayuda",
+    "tituloContacto": "Contacto",
+    "credito": "Kervin Martínez",
+    "copyright": "© 2026 RODA. Rueda seguro."
+  },
+  "contacto": {
+    "whatsapp": "573117365928",
+    "telefono": "+57 311 736 5928",
+    "ciudad": "Medellín, Colombia"
+  },
+  "fichaBadges": [
+    "Instalación incluida",
+    "Garantía hasta 5 años",
+    "Envío 24–48 h"
+  ]
 }

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import productos from "@/data/productos.json";
+import contenido from "@/data/contenido.json";
 import { porSlug, similares, formatoPrecio, medidaDe } from "@/lib/catalogo";
 import { construirMeta, SITE_URL } from "@/lib/seo";
 import ImagenProducto from "@/components/ImagenProducto";
@@ -29,11 +30,8 @@ export async function generateMetadata({ params }) {
   });
 }
 
-const CONFIANZA = [
-  "Instalación incluida",
-  "Garantía hasta 5 años",
-  "Envío 24–48 h",
-];
+// Badges de confianza de la ficha (editables desde el CMS).
+const CONFIANZA = contenido.fichaBadges;
 
 export default async function ProductoPage({ params }) {
   const { slug } = await params;
