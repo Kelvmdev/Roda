@@ -71,7 +71,8 @@
     "precio": 299900,
     "etiqueta": "Oferta",
     "destacado": false,
-    "descripcion": "Diseñada para el clima y las vías de la región: tracción segura y larga vida útil."
+    "descripcion": "Diseñada para el clima y las vías de la región: tracción segura y larga vida útil.",
+    "imagen": "https://res.cloudinary.com/dw26ujhoo/image/upload/v1781363171/u2vmbzkwyhi56lhcp96r.jpg"
   },
   {
     "id": 6,
