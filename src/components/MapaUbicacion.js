@@ -43,43 +43,43 @@ export default function MapaUbicacion({ titulo, subtitulo, direccion }) {
     }
   }
 
+  // Renderiza solo su contenido (sin <section>). `h-full` + `flex-1` hacen que el
+  // mapa llene la altura de su columna → queda parejo con los testimonios.
   return (
-    <section className="bg-fondo">
-      <div className="mx-auto max-w-7xl px-4 py-12 lg:py-16">
-        <h2 className="font-display text-2xl font-bold text-navy sm:text-3xl">
-          {titulo}
-        </h2>
-        <p className="mt-1 text-sm text-texto-suave">{subtitulo}</p>
-        <p className="mt-1 text-sm font-medium text-navy">{direccion}</p>
+    <div className="flex h-full flex-col">
+      <h2 className="font-display text-2xl font-bold text-navy sm:text-3xl">
+        {titulo}
+      </h2>
+      <p className="mt-1 text-sm text-texto-suave">{subtitulo}</p>
+      <p className="mt-1 text-sm font-medium text-navy">{direccion}</p>
 
-        <div
-          className="relative mt-6 overflow-hidden rounded-2xl border border-linea"
-          onWheel={reBloquear}
-        >
-          <iframe
-            src={src}
-            title={`Mapa de ubicación: ${direccion}`}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="h-80 w-full border-0 sm:h-[26rem]"
-          />
+      <div
+        className="relative mt-6 min-h-[20rem] flex-1 overflow-hidden rounded-2xl border border-linea"
+        onWheel={reBloquear}
+      >
+        <iframe
+          src={src}
+          title={`Mapa de ubicación: ${direccion}`}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="absolute inset-0 h-full w-full border-0"
+        />
 
-          {bloqueado && (
-            <button
-              type="button"
-              onClick={alClick}
-              aria-label="Activar el mapa (doble clic para interactuar)"
-              className="absolute inset-0 grid place-items-center bg-transparent"
-            >
-              {pista && (
-                <span className="pointer-events-none rounded-full bg-navy px-4 py-2 text-sm font-medium text-superficie shadow-lg">
-                  Doble clic para interactuar con el mapa
-                </span>
-              )}
-            </button>
-          )}
-        </div>
+        {bloqueado && (
+          <button
+            type="button"
+            onClick={alClick}
+            aria-label="Activar el mapa (doble clic para interactuar)"
+            className="absolute inset-0 grid place-items-center bg-transparent"
+          >
+            {pista && (
+              <span className="pointer-events-none rounded-full bg-navy px-4 py-2 text-sm font-medium text-superficie shadow-lg">
+                Doble clic para interactuar con el mapa
+              </span>
+            )}
+          </button>
+        )}
       </div>
-    </section>
+    </div>
   );
 }

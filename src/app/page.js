@@ -118,18 +118,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. TESTIMONIOS (prueba social; se oculta si la lista está vacía) */}
-      <Testimonios
-        titulo={contenido.testimonios.titulo}
-        lista={contenido.testimonios.lista}
-      />
-
-      {/* 5. UBICACIÓN (mapa, antes del footer) */}
-      <MapaUbicacion
-        titulo={contenido.ubicacion.titulo}
-        subtitulo={contenido.ubicacion.subtitulo}
-        direccion={contenido.ubicacion.direccion}
-      />
+      {/* 4. TESTIMONIOS + UBICACIÓN en dos columnas (50/50 en desktop, apiladas
+          en móvil). items-stretch → ambas columnas igualan su altura. */}
+      <section className="bg-fondo">
+        <div className="mx-auto max-w-7xl px-4 py-12 lg:py-16">
+          {contenido.testimonios.lista?.length > 0 ? (
+            <div className="grid items-stretch gap-8 lg:grid-cols-2">
+              <Testimonios
+                titulo={contenido.testimonios.titulo}
+                lista={contenido.testimonios.lista}
+              />
+              <MapaUbicacion
+                titulo={contenido.ubicacion.titulo}
+                subtitulo={contenido.ubicacion.subtitulo}
+                direccion={contenido.ubicacion.direccion}
+              />
+            </div>
+          ) : (
+            // Sin testimonios → el mapa ocupa todo el ancho.
+            <MapaUbicacion
+              titulo={contenido.ubicacion.titulo}
+              subtitulo={contenido.ubicacion.subtitulo}
+              direccion={contenido.ubicacion.direccion}
+            />
+          )}
+        </div>
+      </section>
     </>
   );
 }
