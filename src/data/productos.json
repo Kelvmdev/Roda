@@ -26,7 +26,8 @@
     "precio": 329900,
     "etiqueta": null,
     "destacado": true,
-    "descripcion": "Bajo consumo y confort de marcha. Ideal para ciudad y carretera con estabilidad europea."
+    "descripcion": "Bajo consumo y confort de marcha. Ideal para ciudad y carretera con estabilidad europea.",
+    "imagen": "https://res.cloudinary.com/dw26ujhoo/image/upload/v1781363127/agkq1eea08ct7js64g3b.jpg"
   },
   {
     "id": 3,
