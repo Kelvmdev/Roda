@@ -41,3 +41,19 @@ export const similares = (producto, max = 4) =>
 // Formatos compartidos (DRY §5.2): precio en pesos y medida "205/55 R16".
 export const formatoPrecio = (precio) => `$${precio.toLocaleString("es-CO")}`;
 export const medidaDe = ({ ancho, perfil, rin }) => `${ancho}/${perfil} ${rin}`;
+
+// Convierte un texto a slug: minúsculas, sin tildes, espacios → guiones.
+// "Michelin Primacy 4" → "michelin-primacy-4".
+export const slugify = (texto) =>
+  texto
+    .toLowerCase()
+    .trim()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "") // quita marcas de acento separadas por NFD
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+// Slug único de un producto = marca + modelo + medida. Una sola fuente de
+// verdad (§5.6): el mismo producto siempre produce el mismo slug.
+export const slugDe = ({ marca, modelo, ancho, perfil, rin }) =>
+  slugify(`${marca} ${modelo} ${ancho} ${perfil} ${rin}`);

@@ -5,6 +5,7 @@
 //
 // Props:
 //   id           identificador único (también del <label> y del id de error)
+//   name         atributo name del input (para FormData/Server Actions; default = id)
 //   etiqueta     texto visible del <label>
 //   valor        valor controlado del input
 //   onChange     handler de cambio
@@ -17,6 +18,7 @@
 //   inputRef     ref al <input> (para mover el foco al primer campo con error)
 export default function CampoFormulario({
   id,
+  name,
   etiqueta,
   valor,
   onChange,
@@ -36,6 +38,7 @@ export default function CampoFormulario({
       </label>
       <input
         id={id}
+        name={name ?? id}
         ref={inputRef}
         type={tipo}
         inputMode={inputMode}

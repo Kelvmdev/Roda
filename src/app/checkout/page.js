@@ -157,7 +157,7 @@ export default function CheckoutPage() {
 
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 <div className="sm:col-span-2">
-                  <Campo
+                  <CampoFormulario
                     id="nombre"
                     etiqueta="Nombre completo"
                     valor={datos.nombre}
@@ -170,7 +170,7 @@ export default function CheckoutPage() {
                   />
                 </div>
 
-                <Campo
+                <CampoFormulario
                   id="telefono"
                   etiqueta="WhatsApp / teléfono"
                   valor={datos.telefono}
@@ -184,7 +184,7 @@ export default function CheckoutPage() {
                   inputRef={(el) => (refs.current.telefono = el)}
                 />
 
-                <Campo
+                <CampoFormulario
                   id="email"
                   etiqueta="Correo electrónico"
                   valor={datos.email}
@@ -198,7 +198,7 @@ export default function CheckoutPage() {
                   inputRef={(el) => (refs.current.email = el)}
                 />
 
-                <Campo
+                <CampoFormulario
                   id="ciudad"
                   etiqueta="Ciudad"
                   valor={datos.ciudad}
@@ -211,7 +211,7 @@ export default function CheckoutPage() {
                 />
 
                 <div className="sm:col-span-2">
-                  <Campo
+                  <CampoFormulario
                     id="direccion"
                     etiqueta="Dirección de entrega"
                     valor={datos.direccion}
