@@ -50,11 +50,11 @@ export default function CampoFormulario({
         aria-invalid={error ? "true" : undefined}
         aria-describedby={error ? idError : undefined}
         className={`mt-1.5 w-full rounded-xl border bg-superficie px-4 py-3 text-sm text-navy outline-none transition duration-150 placeholder:text-texto-suave/70 focus:ring-2 focus:ring-acento ${
-          error ? "border-red-500" : "border-linea"
+          error ? "border-error" : "border-linea"
         }`}
       />
       {/* aria-live: el lector anuncia el error en cuanto aparece (§5.11) */}
-      <p id={idError} aria-live="polite" className="min-h-5 text-xs text-red-600">
+      <p id={idError} aria-live="polite" className="min-h-5 text-xs text-error">
         {error}
       </p>
     </div>

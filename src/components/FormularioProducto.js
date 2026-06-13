@@ -81,7 +81,7 @@ export default function FormularioProducto({ producto, accion, textoBoton = "Gua
               <option value="carro">Carro</option>
               <option value="moto">Moto</option>
             </select>
-            <p id="tipo-error" aria-live="polite" className="min-h-5 text-xs text-red-600">
+            <p id="tipo-error" aria-live="polite" className="min-h-5 text-xs text-error">
               {err.tipo}
             </p>
           </div>
@@ -181,7 +181,7 @@ export default function FormularioProducto({ producto, accion, textoBoton = "Gua
 
       {/* Error general del servidor (slug duplicado, fallo al guardar…). */}
       {estado?.error && (
-        <p role="alert" aria-live="assertive" className="text-sm font-medium text-red-600">
+        <p role="alert" aria-live="assertive" className="text-sm font-medium text-error">
           {estado.error}
         </p>
       )}

@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Link from "next/link";
 import { filtrar } from "@/lib/catalogo";
 import ProductCard from "@/components/ProductCard";
 import FiltrosCatalogo from "@/components/FiltrosCatalogo";
@@ -59,12 +60,12 @@ export default async function Catalogo({ searchParams }) {
             <p className="mt-1 text-sm text-texto-suave">
               Prueba con otra combinación o limpia los filtros.
             </p>
-            <a
+            <Link
               href="/catalogo"
               className="mt-4 inline-flex rounded-full bg-acento px-5 py-2.5 text-sm font-semibold text-superficie transition duration-150 hover:bg-navy active:scale-95"
             >
               Limpiar filtros
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">

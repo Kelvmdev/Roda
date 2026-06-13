@@ -47,7 +47,7 @@ export default async function AdminPanel({ searchParams }) {
           <p
             role="alert"
             aria-live="assertive"
-            className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+            className="mt-6 rounded-xl border border-error bg-error-suave px-4 py-3 text-sm font-medium text-error"
           >
             {sp.error}
           </p>
@@ -62,9 +62,10 @@ export default async function AdminPanel({ searchParams }) {
           </Link>
         </div>
 
-        {/* Lista de llantas */}
-        <div className="mt-6 overflow-hidden rounded-2xl border border-linea bg-superficie">
-          <table className="w-full text-sm">
+        {/* Lista de llantas. overflow-x-auto → en móvil (320px) la tabla hace
+            scroll horizontal en vez de recortarse. */}
+        <div className="mt-6 overflow-x-auto rounded-2xl border border-linea bg-superficie">
+          <table className="w-full min-w-[34rem] text-sm">
             <caption className="sr-only">Llantas del catálogo</caption>
             <thead>
               <tr className="border-b border-linea text-left text-texto-suave">

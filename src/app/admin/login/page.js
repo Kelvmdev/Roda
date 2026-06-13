@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
             <p
               role="alert"
               aria-live="assertive"
-              className="text-sm font-medium text-red-600"
+              className="text-sm font-medium text-error"
             >
               {estado.error}
             </p>

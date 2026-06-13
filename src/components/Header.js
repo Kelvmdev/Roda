@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 import { useCarrito } from "@/context/CarritoContext";
+import { WHATSAPP_TEL, WHATSAPP_DISPLAY } from "@/lib/config";
 
 // Una sola fuente de verdad para los enlaces (DRY §5.2).
 const ENLACES = [
@@ -68,8 +69,8 @@ export default function Header() {
       {/* Barra superior delgada (navy) */}
       <div className="bg-navy text-superficie text-xs">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2">
-          <a href="tel:+573117365928" className="hover:underline">
-            <span aria-hidden="true">☎</span> Asesoría: +57 311 736 5928
+          <a href={`tel:${WHATSAPP_TEL}`} className="hover:underline">
+            <span aria-hidden="true">☎</span> Asesoría: {WHATSAPP_DISPLAY}
           </a>
           <span className="hidden sm:inline">
             <span aria-hidden="true">🚚</span> Envío e instalación en Medellín

@@ -8,6 +8,13 @@
 export const WHATSAPP_NUMERO =
   process.env.NEXT_PUBLIC_WHATSAPP || "573117365928";
 
+// Mismo número, derivado para otros usos (DRY): href de `tel:` y versión legible.
+export const WHATSAPP_TEL = `+${WHATSAPP_NUMERO}`;
+export const WHATSAPP_DISPLAY = `+${WHATSAPP_NUMERO.slice(0, 2)} ${WHATSAPP_NUMERO.slice(
+  2,
+  5
+)} ${WHATSAPP_NUMERO.slice(5, 8)} ${WHATSAPP_NUMERO.slice(8)}`;
+
 // Clave de sessionStorage donde el checkout deja el enlace de respaldo para
 // que /gracias pueda reabrirlo. Compartida para no repetir el string.
 export const CLAVE_WHATSAPP = "roda_whatsapp";

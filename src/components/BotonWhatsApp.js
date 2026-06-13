@@ -5,12 +5,14 @@ import { enlaceWhatsapp } from "@/lib/config";
 // Usa los tokens --color-whatsapp / --color-whatsapp-deep (texto blanco, AA §6.3).
 export default function BotonWhatsApp({
   mensaje = "Hola RODA, tengo una duda",
+  href, // si se pasa, se usa tal cual (p. ej. el enlace guardado en /gracias)
   etiqueta = "Escríbenos por WhatsApp",
   className = "",
 }) {
+  const destino = href ?? enlaceWhatsapp(mensaje);
   return (
     <a
-      href={enlaceWhatsapp(mensaje)}
+      href={destino}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${etiqueta} (se abre en una pestaña nueva)`}

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Buscador from "@/components/Buscador";
 import ProductCard from "@/components/ProductCard";
 import productos from "@/data/productos.json";
@@ -118,12 +119,12 @@ export default function Home() {
             <h2 className="font-display text-2xl font-bold text-navy sm:text-3xl">
               Más vendidas
             </h2>
-            <a
+            <Link
               href="/catalogo"
               className="text-sm font-semibold text-acento-fuerte transition-colors hover:text-navy"
             >
               Ver todo el catálogo <span aria-hidden="true">→</span>
-            </a>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">

@@ -14,6 +14,10 @@
      sobre bg-fondo, 6.8:1 sobre blanco. El acento normal se queda para fondos
      de botón (con texto blanco) e iconos. */
   --color-acento-fuerte: #1559b0;
+  /* Rojo de error accesible (texto/borde): ~6.5:1 sobre blanco, ~6:1 sobre
+     bg-fondo. `suave` = fondo claro para avisos. Evita rojos sueltos (§1). */
+  --color-error: #b91c1c;
+  --color-error-suave: #fef2f2;
   --color-linea: #e2e7ef;
   --color-texto: #0e2342;
   --color-texto-suave: #5c6b82;
