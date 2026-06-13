@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ANCHOS, PERFILES, RINES } from "@/lib/catalogo";
+import contenido from "@/data/contenido.json";
 
 // Select etiquetado (a11y §5.11), controlado por estado.
 function Campo({ id, etiqueta, opciones, value, onChange }) {
@@ -64,10 +65,10 @@ export default function Buscador() {
   return (
     <div className="rounded-2xl border border-linea bg-superficie p-6 shadow-xl">
       <h2 className="font-display text-2xl font-bold text-navy">
-        Encuentra tu llanta
+        {contenido.buscador.titulo}
       </h2>
       <p className="mt-1 text-sm text-texto-suave">
-        Filtra por medida y te mostramos lo compatible.
+        {contenido.buscador.subtitulo}
       </p>
 
       {/* Toggle Carro / Moto */}
@@ -107,7 +108,7 @@ export default function Buscador() {
         onClick={verCompatibles}
         className="mt-5 w-full rounded-full bg-acento py-3 font-semibold text-superficie transition duration-150 hover:bg-navy active:scale-95"
       >
-        Ver llantas compatibles
+        {contenido.buscador.boton}
       </button>
     </div>
   );

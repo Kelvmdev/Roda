@@ -6,14 +6,15 @@ import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 import { useCarrito } from "@/context/CarritoContext";
 import { WHATSAPP_TEL, WHATSAPP_DISPLAY } from "@/lib/config";
+import contenido from "@/data/contenido.json";
 
-// Una sola fuente de verdad para los enlaces (DRY §5.2).
+// Etiquetas editables (CMS) + hrefs fijos (estructura). DRY §5.2.
 const ENLACES = [
-  { label: "Carros", href: "/catalogo?tipo=carro" },
-  { label: "Motos", href: "/catalogo?tipo=moto" },
-  { label: "Marcas", href: "/catalogo" },
-  { label: "Ofertas", href: "/catalogo?etiqueta=Oferta" },
-  { label: "Ayuda", href: "/ayuda" },
+  { label: contenido.nav.carros, href: "/catalogo?tipo=carro" },
+  { label: contenido.nav.motos, href: "/catalogo?tipo=moto" },
+  { label: contenido.nav.marcas, href: "/catalogo" },
+  { label: contenido.nav.ofertas, href: "/catalogo?etiqueta=Oferta" },
+  { label: contenido.nav.ayuda, href: "/ayuda" },
 ];
 
 // Campo de búsqueda reutilizado en desktop y en el menú móvil.
@@ -70,10 +71,11 @@ export default function Header() {
       <div className="bg-navy text-superficie text-xs">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2">
           <a href={`tel:${WHATSAPP_TEL}`} className="hover:underline">
-            <span aria-hidden="true">☎</span> Asesoría: {WHATSAPP_DISPLAY}
+            <span aria-hidden="true">☎</span> {contenido.topbar.asesoria}{" "}
+            {WHATSAPP_DISPLAY}
           </a>
           <span className="hidden sm:inline">
-            <span aria-hidden="true">🚚</span> Envío e instalación en Medellín
+            <span aria-hidden="true">🚚</span> {contenido.topbar.envio}
           </span>
         </div>
       </div>

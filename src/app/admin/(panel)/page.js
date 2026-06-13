@@ -3,7 +3,6 @@ import { leerProductos } from "@/lib/productos-store";
 import { medidaDe, formatoPrecio } from "@/lib/catalogo";
 import BotonBorrarProducto from "@/components/BotonBorrarProducto";
 import { borrarProducto } from "./productos/acciones";
-import { cerrarSesion } from "../acciones";
 
 export const metadata = {
   title: "Panel RODA",
@@ -22,24 +21,14 @@ export default async function AdminPanel({ searchParams }) {
     <div className="bg-fondo">
       <div className="mx-auto max-w-5xl px-4 py-12">
         {/* Encabezado */}
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <h1 className="font-display text-3xl font-bold text-navy sm:text-4xl">
-              Panel RODA
-            </h1>
-            <p className="mt-1 text-sm text-texto-suave">
-              {productos.length} {productos.length === 1 ? "llanta" : "llantas"} en
-              el catálogo.
-            </p>
-          </div>
-          <form action={cerrarSesion}>
-            <button
-              type="submit"
-              className="rounded-full border border-linea px-5 py-2.5 text-sm font-semibold text-navy transition duration-150 hover:bg-acento-suave active:scale-95"
-            >
-              Cerrar sesión
-            </button>
-          </form>
+        <div>
+          <h1 className="font-display text-3xl font-bold text-navy sm:text-4xl">
+            Productos
+          </h1>
+          <p className="mt-1 text-sm text-texto-suave">
+            {productos.length} {productos.length === 1 ? "llanta" : "llantas"} en
+            el catálogo.
+          </p>
         </div>
 
         {/* Aviso de error (p. ej. si falla un borrado contra GitHub). */}

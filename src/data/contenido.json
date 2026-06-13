@@ -1,0 +1,34 @@
+{
+  "topbar": {
+    "asesoria": "Asesoría:",
+    "envio": "Envío e instalación en Medellín"
+  },
+  "nav": {
+    "carros": "Carros",
+    "motos": "Motos",
+    "marcas": "Marcas",
+    "ofertas": "Ofertas",
+    "ayuda": "Ayuda"
+  },
+  "hero": {
+    "eyebrow": "Llantas para carro y moto",
+    "titulo": "El agarre que te lleva",
+    "tituloAcento": "a casa.",
+    "subtitulo": "Encuentra la medida exacta para tu vehículo, con garantía real e instalación incluida. Sin vueltas: tú eliges, nosotros montamos."
+  },
+  "buscador": {
+    "titulo": "Encuentra tu llanta",
+    "subtitulo": "Filtra por medida y te mostramos lo compatible.",
+    "boton": "Ver llantas compatibles"
+  },
+  "confianza": [
+    { "titulo": "Instalación incluida", "sub": "En tu compra" },
+    { "titulo": "Garantía real", "sub": "Hasta 5 años" },
+    { "titulo": "Envío rápido", "sub": "24–48 h" },
+    { "titulo": "Pago seguro", "sub": "Contraentrega o transferencia" }
+  ],
+  "masVendidas": {
+    "titulo": "Más vendidas",
+    "enlace": "Ver todo el catálogo"
+  }
+}
