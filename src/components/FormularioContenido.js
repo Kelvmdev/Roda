@@ -149,6 +149,9 @@ export default function FormularioContenido({ contenido, accion }) {
   const claseFieldset =
     "rounded-2xl border border-linea bg-superficie p-6";
   const claseLegend = "px-1 font-display text-lg font-bold text-navy";
+  // Estilo del <select> (estrellas), con los mismos tokens que CampoFormulario.
+  const claseSelect =
+    "mt-1.5 w-full rounded-xl border border-linea bg-superficie px-4 py-3 text-sm text-navy outline-none transition duration-150 focus:ring-2 focus:ring-acento";
 
   // Editor de un documento legal (título + intro + secciones editables).
   const renderLegal = (doc, etiqueta) => (
