@@ -66,6 +66,14 @@ export async function guardarContenidoAccion(estadoPrevio, formData) {
       : original.fichaBadges,
     legales: fusionarLegales(original.legales, editado.legales),
     seo: { ...original.seo, ...editado.seo },
+    testimonios: {
+      ...original.testimonios,
+      ...editado.testimonios,
+      lista: Array.isArray(editado.testimonios?.lista)
+        ? editado.testimonios.lista
+        : original.testimonios.lista,
+    },
+    ubicacion: { ...original.ubicacion, ...editado.ubicacion },
   };
 
   try {

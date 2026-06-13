@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Buscador from "@/components/Buscador";
 import ProductCard from "@/components/ProductCard";
+import Testimonios from "@/components/Testimonios";
+import MapaUbicacion from "@/components/MapaUbicacion";
 import productos from "@/data/productos.json";
 import contenido from "@/data/contenido.json";
 import { construirMeta } from "@/lib/seo";
@@ -115,6 +117,19 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* 4. TESTIMONIOS (prueba social; se oculta si la lista está vacía) */}
+      <Testimonios
+        titulo={contenido.testimonios.titulo}
+        lista={contenido.testimonios.lista}
+      />
+
+      {/* 5. UBICACIÓN (mapa, antes del footer) */}
+      <MapaUbicacion
+        titulo={contenido.ubicacion.titulo}
+        subtitulo={contenido.ubicacion.subtitulo}
+        direccion={contenido.ubicacion.direccion}
+      />
     </>
   );
 }

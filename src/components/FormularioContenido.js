@@ -106,6 +106,46 @@ export default function FormularioContenido({ contenido, accion }) {
       seo: { ...p.seo, [clave]: { ...p.seo[clave], [campo]: ev.target.value } },
     }));
 
+  // Testimonios: título de sección + lista (editar/agregar/quitar).
+  const setTesti = (campo) => (ev) =>
+    setDatos((p) => ({
+      ...p,
+      testimonios: { ...p.testimonios, [campo]: ev.target.value },
+    }));
+  const setTestiItem = (i, campo) => (ev) => {
+    // Las estrellas se guardan como número.
+    const valor = campo === "estrellas" ? Number(ev.target.value) : ev.target.value;
+    setDatos((p) => ({
+      ...p,
+      testimonios: {
+        ...p.testimonios,
+        lista: p.testimonios.lista.map((t, idx) =>
+          idx === i ? { ...t, [campo]: valor } : t
+        ),
+      },
+    }));
+  };
+  const agregarTesti = () =>
+    setDatos((p) => ({
+      ...p,
+      testimonios: {
+        ...p.testimonios,
+        lista: [...p.testimonios.lista, { nombre: "", comentario: "", estrellas: 5 }],
+      },
+    }));
+  const quitarTesti = (i) =>
+    setDatos((p) => ({
+      ...p,
+      testimonios: {
+        ...p.testimonios,
+        lista: p.testimonios.lista.filter((_, idx) => idx !== i),
+      },
+    }));
+
+  // Ubicación (mapa).
+  const setUbic = (campo) => (ev) =>
+    setDatos((p) => ({ ...p, ubicacion: { ...p.ubicacion, [campo]: ev.target.value } }));
+
   const claseFieldset =
     "rounded-2xl border border-linea bg-superficie p-6";
   const claseLegend = "px-1 font-display text-lg font-bold text-navy";
@@ -310,6 +350,60 @@ export default function FormularioContenido({ contenido, accion }) {
               </div>
             </div>
           ))}
+        </div>
+      </fieldset>
+
+      <fieldset className={claseFieldset}>
+        <legend className={claseLegend}>Testimonios</legend>
+        <CampoFormulario id="testi-titulo" etiqueta="Título de la sección" valor={datos.testimonios.titulo} onChange={setTesti("titulo")} />
+        <div className="mt-4 flex flex-col gap-4">
+          {datos.testimonios.lista.map((t, i) => (
+            <div key={i} className="rounded-xl border border-linea p-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-sm font-semibold text-navy">Testimonio {i + 1}</span>
+                <button type="button" onClick={() => quitarTesti(i)} className="text-xs font-medium text-error hover:underline">
+                  Quitar
+                </button>
+              </div>
+              <div className="mt-2 grid gap-4 sm:grid-cols-2">
+                <CampoFormulario id={`testi-${i}-nombre`} etiqueta="Nombre" valor={t.nombre} onChange={setTestiItem(i, "nombre")} />
+                <div>
+                  <label htmlFor={`testi-${i}-estrellas`} className="block text-sm font-semibold text-navy">
+                    Estrellas
+                  </label>
+                  <select
+                    id={`testi-${i}-estrellas`}
+                    value={t.estrellas}
+                    onChange={setTestiItem(i, "estrellas")}
+                    className={claseSelect}
+                  >
+                    {[1, 2, 3, 4, 5].map((n) => (
+                      <option key={n} value={n}>
+                        {n}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="sm:col-span-2">
+                  <CampoFormulario id={`testi-${i}-comentario`} etiqueta="Comentario" valor={t.comentario} onChange={setTestiItem(i, "comentario")} />
+                </div>
+              </div>
+            </div>
+          ))}
+          <button type="button" onClick={agregarTesti} className="w-fit rounded-full border border-linea px-4 py-2 text-sm font-semibold text-navy transition duration-150 hover:bg-acento-suave active:scale-95">
+            + Agregar testimonio
+          </button>
+        </div>
+      </fieldset>
+
+      <fieldset className={claseFieldset}>
+        <legend className={claseLegend}>Ubicación (mapa)</legend>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <CampoFormulario id="ubic-titulo" etiqueta="Título" valor={datos.ubicacion.titulo} onChange={setUbic("titulo")} />
+          <CampoFormulario id="ubic-subtitulo" etiqueta="Subtítulo / cobertura" valor={datos.ubicacion.subtitulo} onChange={setUbic("subtitulo")} />
+          <div className="sm:col-span-2">
+            <CampoFormulario id="ubic-direccion" etiqueta="Dirección (la usa el mapa)" valor={datos.ubicacion.direccion} onChange={setUbic("direccion")} />
+          </div>
         </div>
       </fieldset>
 

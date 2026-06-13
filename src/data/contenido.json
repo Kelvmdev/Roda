@@ -190,5 +190,30 @@
       "title": "Política de privacidad — RODA",
       "description": "Qué datos te pedimos en el checkout y para qué los usamos: coordinar tu pedido por WhatsApp. No procesamos pagos en línea."
     }
+  },
+  "testimonios": {
+    "titulo": "Lo que dicen nuestros clientes",
+    "lista": [
+      {
+        "nombre": "Carlos M.",
+        "comentario": "Me asesoraron por WhatsApp para encontrar la medida exacta y me instalaron las llantas el mismo día. Excelente servicio.",
+        "estrellas": 5
+      },
+      {
+        "nombre": "Laura G.",
+        "comentario": "Buen precio y la instalación venía incluida. Todo claro desde el principio, sin sorpresas.",
+        "estrellas": 5
+      },
+      {
+        "nombre": "Andrés P.",
+        "comentario": "Cumplieron con el envío en el tiempo que dijeron. Volveré a comprar.",
+        "estrellas": 4
+      }
+    ]
+  },
+  "ubicacion": {
+    "titulo": "Visítanos",
+    "subtitulo": "Cobertura en Medellín y su área metropolitana.",
+    "direccion": "El Poblado, Medellín"
   }
 }
