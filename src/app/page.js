@@ -1,5 +1,6 @@
 import Buscador from "@/components/Buscador";
-import TarjetaLlanta from "@/components/TarjetaLlanta";
+import ProductCard from "@/components/ProductCard";
+import productos from "@/data/productos.json";
 
 // --- Datos estáticos (presentacional; luego vendrán de datos reales) ---
 const CONFIANZA = [
@@ -50,12 +51,8 @@ const CONFIANZA = [
   },
 ];
 
-const DESTACADAS = [
-  { marca: "Michelin", modelo: "Primacy 4", medida: "205/55 R16", precio: 389900 },
-  { marca: "Pirelli", modelo: "Cinturato P7", medida: "195/65 R15", precio: 329900 },
-  { marca: "Bridgestone", modelo: "Turanza T005", medida: "225/45 R17", precio: 519900 },
-  { marca: "Michelin", modelo: "Pilot Street", medida: "110/70 R17", precio: 249900 },
-];
+// Destacados derivados de los datos (§5.6): un solo origen de verdad.
+const DESTACADAS = productos.filter((p) => p.destacado);
 
 export default function Home() {
   return (
@@ -114,7 +111,7 @@ export default function Home() {
               Más vendidas
             </h2>
             <a
-              href="#"
+              href="/catalogo"
               className="text-sm font-semibold text-acento transition-colors hover:text-navy"
             >
               Ver todo el catálogo <span aria-hidden="true">→</span>
@@ -123,7 +120,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {DESTACADAS.map((p) => (
-              <TarjetaLlanta key={`${p.modelo}-${p.medida}`} {...p} />
+              <ProductCard key={p.id} producto={p} />
             ))}
           </div>
         </div>

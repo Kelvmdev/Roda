@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Logo from "./Logo";
+import { useCarrito } from "@/context/CarritoContext";
 
 // Una sola fuente de verdad para los enlaces (DRY §5.2).
 const ENLACES = [
-  { label: "Carros", href: "#" },
-  { label: "Motos", href: "#" },
+  { label: "Carros", href: "/catalogo?tipo=carro" },
+  { label: "Motos", href: "/catalogo?tipo=moto" },
   { label: "Marcas", href: "#" },
   { label: "Ofertas", href: "#" },
   { label: "Ayuda", href: "#" },
@@ -42,6 +43,7 @@ function Busqueda({ className = "" }) {
 
 export default function Header() {
   const [abierto, setAbierto] = useState(false);
+  const { totalItems } = useCarrito();
 
   return (
     <header className="sticky top-0 z-50">
@@ -104,10 +106,12 @@ export default function Header() {
 
             {/* Carrito con badge */}
             <a
-              href="#"
+              href="/carrito"
               className="relative rounded-full p-2 text-navy transition duration-150 hover:bg-acento-suave active:scale-95"
             >
-              <span className="sr-only">Carrito, 0 productos</span>
+              <span className="sr-only">
+                Carrito, {totalItems} {totalItems === 1 ? "producto" : "productos"}
+              </span>
               <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
                 <path
                   d="M3 4h2l2.4 12.3a1 1 0 0 0 1 .7h8.7a1 1 0 0 0 1-.8L21 8H6"
@@ -119,12 +123,14 @@ export default function Header() {
                 <circle cx="9" cy="20" r="1.4" fill="currentColor" />
                 <circle cx="18" cy="20" r="1.4" fill="currentColor" />
               </svg>
-              <span
-                aria-hidden="true"
-                className="absolute right-0 top-0 grid h-4 min-w-4 place-items-center rounded-full bg-acento px-1 text-[0.625rem] font-semibold leading-none text-superficie"
-              >
-                0
-              </span>
+              {totalItems > 0 && (
+                <span
+                  aria-hidden="true"
+                  className="absolute right-0 top-0 grid h-4 min-w-4 place-items-center rounded-full bg-acento px-1 text-[0.625rem] font-semibold leading-none text-superficie"
+                >
+                  {totalItems}
+                </span>
+              )}
             </a>
 
             {/* Hamburguesa (solo móvil) */}
