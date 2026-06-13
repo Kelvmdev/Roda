@@ -86,7 +86,8 @@
     "precio": 359900,
     "etiqueta": null,
     "destacado": false,
-    "descripcion": "Respuesta deportiva y agarre estable a buen precio. Rendimiento que se siente al volante."
+    "descripcion": "Respuesta deportiva y agarre estable a buen precio. Rendimiento que se siente al volante.",
+    "imagen": "https://res.cloudinary.com/dw26ujhoo/image/upload/v1781363190/irdn0mjjyghyeoyy6rgx.jpg"
   },
   {
     "id": 7,
