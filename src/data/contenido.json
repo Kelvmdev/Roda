@@ -12,7 +12,7 @@
   },
   "hero": {
     "eyebrow": "Llantas para carro y moto",
-    "titulo": "El agarre que te lleva",
+    "titulo": "Llantas que te llevan",
     "tituloAcento": "a casa.",
     "subtitulo": "Encuentra la medida exacta para tu vehículo, con garantía real e instalación incluida. Sin vueltas: tú eliges, nosotros montamos."
   },
@@ -22,10 +22,22 @@
     "boton": "Ver llantas compatibles"
   },
   "confianza": [
-    { "titulo": "Instalación incluida", "sub": "En tu compra" },
-    { "titulo": "Garantía real", "sub": "Hasta 5 años" },
-    { "titulo": "Envío rápido", "sub": "24–48 h" },
-    { "titulo": "Pago seguro", "sub": "Contraentrega o transferencia" }
+    {
+      "titulo": "Instalación incluida",
+      "sub": "En tu compra"
+    },
+    {
+      "titulo": "Garantía real",
+      "sub": "Hasta 5 años"
+    },
+    {
+      "titulo": "Envío rápido",
+      "sub": "24–48 h"
+    },
+    {
+      "titulo": "Pago seguro",
+      "sub": "Contraentrega o transferencia"
+    }
   ],
   "masVendidas": {
     "titulo": "Más vendidas",
