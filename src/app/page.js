@@ -70,11 +70,11 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 lg:grid-cols-2 lg:py-20">
           {/* Izquierda: mensaje */}
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-acento">
+            <p className="text-sm font-semibold uppercase tracking-wide text-acento-fuerte">
               Llantas para carro y moto
             </p>
             <h1 className="mt-3 font-display text-4xl font-bold leading-tight text-navy sm:text-5xl lg:text-6xl">
-              El agarre que te lleva <span className="text-acento">a casa.</span>
+              El agarre que te lleva <span className="text-acento-fuerte">a casa.</span>
             </h1>
             <p className="mt-4 max-w-md text-base text-texto-suave sm:text-lg">
               Encuentra la medida exacta para tu vehículo, con garantía real e
@@ -120,7 +120,7 @@ export default function Home() {
             </h2>
             <a
               href="/catalogo"
-              className="text-sm font-semibold text-acento transition-colors hover:text-navy"
+              className="text-sm font-semibold text-acento-fuerte transition-colors hover:text-navy"
             >
               Ver todo el catálogo <span aria-hidden="true">→</span>
             </a>

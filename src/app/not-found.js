@@ -12,7 +12,7 @@ export default function NotFound() {
     <div className="bg-fondo">
       <div className="mx-auto max-w-xl px-4 py-24 text-center">
         <LlantaSVG className="mx-auto h-20 w-20 opacity-60" />
-        <p className="mt-6 font-display text-5xl font-bold text-acento">404</p>
+        <p className="mt-6 font-display text-5xl font-bold text-acento-fuerte">404</p>
         <h1 className="mt-2 font-display text-2xl font-bold text-navy sm:text-3xl">
           Esta página se desinfló
         </h1>

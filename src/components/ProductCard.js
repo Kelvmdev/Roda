@@ -39,7 +39,7 @@ export default function ProductCard({ producto }) {
         {marca}
       </p>
       <h3 className="font-display text-lg font-semibold leading-tight text-navy">
-        <Link href={href} className="transition-colors hover:text-acento">
+        <Link href={href} className="transition-colors hover:text-acento-fuerte">
           {modelo}
         </Link>
       </h3>

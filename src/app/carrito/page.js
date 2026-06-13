@@ -47,7 +47,7 @@ export default function CarritoPage() {
           <button
             type="button"
             onClick={vaciarConConfirmacion}
-            className="text-sm font-semibold text-texto-suave transition-colors hover:text-acento"
+            className="text-sm font-semibold text-texto-suave transition-colors hover:text-acento-fuerte"
           >
             Vaciar carrito
           </button>
@@ -73,7 +73,7 @@ export default function CarritoPage() {
                   </p>
                   <Link
                     href={`/producto/${it.slug}`}
-                    className="font-display text-lg font-semibold leading-tight text-navy transition-colors hover:text-acento"
+                    className="font-display text-lg font-semibold leading-tight text-navy transition-colors hover:text-acento-fuerte"
                   >
                     {it.modelo}
                   </Link>

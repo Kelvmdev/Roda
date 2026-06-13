@@ -82,7 +82,7 @@ export default async function ProductoPage({ params }) {
       <div className="mx-auto max-w-7xl px-4 py-8 lg:py-12">
         <Link
           href="/catalogo"
-          className="text-sm font-semibold text-acento transition-colors hover:text-navy"
+          className="text-sm font-semibold text-acento-fuerte transition-colors hover:text-navy"
         >
           <span aria-hidden="true">←</span> Volver al catálogo
         </Link>

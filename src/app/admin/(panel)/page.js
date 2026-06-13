@@ -100,7 +100,7 @@ export default async function AdminPanel({ searchParams }) {
                     <div className="flex items-center justify-end gap-1">
                       <Link
                         href={`/admin/productos/${p.slug}`}
-                        className="rounded-full px-3 py-1.5 text-sm font-semibold text-acento transition duration-150 hover:bg-acento-suave active:scale-95"
+                        className="rounded-full px-3 py-1.5 text-sm font-semibold text-acento-fuerte transition duration-150 hover:bg-acento-suave active:scale-95"
                       >
                         Editar
                       </Link>

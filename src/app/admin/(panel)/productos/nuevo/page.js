@@ -13,7 +13,7 @@ export default function NuevaLlantaPage() {
       <div className="mx-auto max-w-3xl px-4 py-12">
         <Link
           href="/admin"
-          className="text-sm font-semibold text-acento transition-colors hover:text-navy"
+          className="text-sm font-semibold text-acento-fuerte transition-colors hover:text-navy"
         >
           <span aria-hidden="true">←</span> Volver al panel
         </Link>

@@ -92,7 +92,7 @@ export default function Header() {
                 <li key={e.label}>
                   <Link
                     href={e.href}
-                    className="text-sm font-medium text-texto transition-colors hover:text-acento"
+                    className="text-sm font-medium text-texto transition-colors hover:text-acento-fuerte"
                   >
                     {e.label}
                   </Link>
@@ -178,7 +178,7 @@ export default function Header() {
                     <Link
                       href={e.href}
                       onClick={() => setAbierto(false)}
-                      className="block rounded-lg px-2 py-3 text-base font-medium text-texto transition-colors hover:bg-acento-suave hover:text-acento"
+                      className="block rounded-lg px-2 py-3 text-base font-medium text-texto transition-colors hover:bg-acento-suave hover:text-acento-fuerte"
                     >
                       {e.label}
                     </Link>
