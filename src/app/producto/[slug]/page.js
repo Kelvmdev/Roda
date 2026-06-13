@@ -80,7 +80,7 @@ export default async function ProductoPage({ params }) {
             </h1>
 
             <div className="mt-3 flex flex-wrap items-center gap-2">
-              <span className="inline-flex rounded-full bg-acento-suave px-3 py-1 text-sm font-semibold text-acento">
+              <span className="inline-flex rounded-full bg-acento-suave px-3 py-1 text-sm font-semibold text-navy">
                 {medida}
               </span>
               {etiqueta && (

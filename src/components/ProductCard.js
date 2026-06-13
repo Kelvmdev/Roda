@@ -43,7 +43,7 @@ export default function ProductCard({ producto }) {
           {modelo}
         </Link>
       </h3>
-      <span className="mt-2 inline-flex w-fit rounded-full bg-acento-suave px-2.5 py-1 text-xs font-semibold text-acento">
+      <span className="mt-2 inline-flex w-fit rounded-full bg-acento-suave px-2.5 py-1 text-xs font-semibold text-navy">
         {medida}
       </span>
 

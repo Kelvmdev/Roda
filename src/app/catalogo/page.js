@@ -48,10 +48,13 @@ export default async function Catalogo({ searchParams }) {
           <FiltrosCatalogo />
         </Suspense>
 
+        {/* Heading de la lista (sr-only) para no saltar de h1 a h3 (§5.11). */}
+        <h2 className="sr-only">Resultados</h2>
+
         {resultados.length === 0 ? (
           <div className="rounded-2xl border border-linea bg-superficie p-10 text-center">
             <p className="font-display text-xl font-semibold text-navy">
-              No encontramos llantas con esa medida
+              No encontramos llantas con esos criterios
             </p>
             <p className="mt-1 text-sm text-texto-suave">
               Prueba con otra combinación o limpia los filtros.

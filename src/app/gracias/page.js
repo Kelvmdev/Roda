@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import BotonWhatsAppPedido from "@/components/BotonWhatsAppPedido";
 
 // /gracias no debe indexarse en buscadores (§6.4): es una página de confirmación.
@@ -11,6 +12,12 @@ export const metadata = {
 export default async function GraciasPage({ searchParams }) {
   const params = await searchParams;
   const numero = typeof params?.pedido === "string" ? params.pedido : null;
+
+  // Visita directa sin número de pedido (no vino del checkout) → no tiene
+  // sentido decir "¡Pedido recibido!". La mandamos al catálogo.
+  if (!numero) {
+    redirect("/catalogo");
+  }
 
   return (
     <div className="bg-fondo">

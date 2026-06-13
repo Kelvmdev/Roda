@@ -49,7 +49,7 @@ const CONFIANZA = [
   },
   {
     titulo: "Pago seguro",
-    sub: "Tarjeta o efectivo",
+    sub: "Contraentrega o transferencia",
     icono: (
       <g stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
         <rect x="5" y="11" width="14" height="9" rx="2" />
