@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 import { useCarrito } from "@/context/CarritoContext";
 
@@ -8,35 +10,51 @@ import { useCarrito } from "@/context/CarritoContext";
 const ENLACES = [
   { label: "Carros", href: "/catalogo?tipo=carro" },
   { label: "Motos", href: "/catalogo?tipo=moto" },
-  { label: "Marcas", href: "#" },
-  { label: "Ofertas", href: "#" },
-  { label: "Ayuda", href: "#" },
+  { label: "Marcas", href: "/catalogo" },
+  { label: "Ofertas", href: "/catalogo?etiqueta=Oferta" },
+  { label: "Ayuda", href: "/ayuda" },
 ];
 
 // Campo de búsqueda reutilizado en desktop y en el menú móvil.
-function Busqueda({ className = "" }) {
+// `id` único por instancia (evita IDs duplicados entre desktop y móvil).
+// `onNavegar` permite cerrar el menú móvil al buscar.
+function Busqueda({ className = "", id = "buscar", onNavegar }) {
+  const router = useRouter();
+  const [q, setQ] = useState("");
+
+  function alBuscar(ev) {
+    ev.preventDefault();
+    const consulta = q.trim();
+    // Navega al catálogo con ?q=… (o sin él si está vacío).
+    router.push(consulta ? `/catalogo?q=${encodeURIComponent(consulta)}` : "/catalogo");
+    onNavegar?.();
+  }
+
   return (
-    <form role="search" className={`relative ${className}`}>
-      <label htmlFor="buscar" className="sr-only">
+    <form role="search" onSubmit={alBuscar} className={`relative ${className}`}>
+      <label htmlFor={id} className="sr-only">
         Buscar llantas
       </label>
       <input
-        id="buscar"
+        id={id}
         type="search"
         name="q"
+        value={q}
+        onChange={(ev) => setQ(ev.target.value)}
         placeholder="Busca por medida o marca…"
         autoComplete="off"
         className="w-full rounded-full border border-linea bg-fondo py-2 pl-4 pr-10 text-sm text-texto placeholder:text-texto-suave focus:border-acento focus:outline-none focus:ring-2 focus:ring-acento/40"
       />
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-texto-suave"
-        aria-hidden="true"
+      <button
+        type="submit"
+        aria-label="Buscar"
+        className="absolute right-1 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-full text-texto-suave transition duration-150 hover:bg-acento-suave hover:text-acento active:scale-95"
       >
-        <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
-        <path d="m20 20-3-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      </svg>
+        <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+          <path d="m20 20-3-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      </button>
     </form>
   );
 }
@@ -63,49 +81,32 @@ export default function Header() {
       <div className="border-b border-linea bg-superficie">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
           {/* Izquierda: logo */}
-          <a href="#" aria-label="RODA, inicio" className="shrink-0">
+          <Link href="/" aria-label="RODA, inicio" className="shrink-0">
             <Logo />
-          </a>
+          </Link>
 
           {/* Centro: enlaces (solo desktop) */}
           <nav aria-label="Principal" className="hidden md:block">
             <ul className="flex items-center gap-6">
               {ENLACES.map((e) => (
                 <li key={e.label}>
-                  <a
+                  <Link
                     href={e.href}
                     className="text-sm font-medium text-texto transition-colors hover:text-acento"
                   >
                     {e.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </nav>
 
-          {/* Derecha: búsqueda (desktop) + cuenta + carrito + hamburguesa */}
+          {/* Derecha: búsqueda (desktop) + carrito + hamburguesa */}
           <div className="flex items-center gap-2">
-            <Busqueda className="hidden md:block md:w-56 lg:w-72" />
-
-            {/* Cuenta */}
-            <a
-              href="#"
-              className="rounded-full p-2 text-navy transition duration-150 hover:bg-acento-suave active:scale-95"
-            >
-              <span className="sr-only">Mi cuenta</span>
-              <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
-                <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
-                <path
-                  d="M4 20a8 8 0 0 1 16 0"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </a>
+            <Busqueda className="hidden md:block md:w-56 lg:w-72" id="buscar-desktop" />
 
             {/* Carrito con badge */}
-            <a
+            <Link
               href="/carrito"
               className="relative rounded-full p-2 text-navy transition duration-150 hover:bg-acento-suave active:scale-95"
             >
@@ -131,7 +132,7 @@ export default function Header() {
                   {totalItems}
                 </span>
               )}
-            </a>
+            </Link>
 
             {/* Hamburguesa (solo móvil) */}
             <button
@@ -169,18 +170,18 @@ export default function Header() {
           className={`${abierto ? "block" : "hidden"} border-t border-linea bg-superficie md:hidden`}
         >
           <div className="mx-auto max-w-7xl px-4 py-4">
-            <Busqueda className="mb-4" />
+            <Busqueda className="mb-4" id="buscar-movil" onNavegar={() => setAbierto(false)} />
             <nav aria-label="Principal móvil">
               <ul className="flex flex-col">
                 {ENLACES.map((e) => (
                   <li key={e.label}>
-                    <a
+                    <Link
                       href={e.href}
                       onClick={() => setAbierto(false)}
                       className="block rounded-lg px-2 py-3 text-base font-medium text-texto transition-colors hover:bg-acento-suave hover:text-acento"
                     >
                       {e.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

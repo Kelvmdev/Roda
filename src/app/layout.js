@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { CarritoProvider } from "@/context/CarritoContext";
+import { construirMeta, SITE_URL } from "@/lib/seo";
 
 // Títulos: condensada, con carácter técnico de taller.
 const barlow = Barlow_Condensed({
@@ -18,10 +19,16 @@ const inter = Inter({
   weight: ["400", "500", "600"],
 });
 
+// metadataBase: sin esto, og:image saldría relativo/localhost y el preview no
+// cargaría al compartir (§6.2). Resuelve las URLs relativas (/og, canonical).
 export const metadata = {
-  title: "RODA — Llantas para carro y moto",
-  description:
-    "Llantas para carro y moto con asesoría técnica y entrega confiable. Encuentra la medida exacta para tu vehículo en RODA.",
+  metadataBase: new URL(SITE_URL),
+  ...construirMeta({
+    title: "RODA — Llantas para carro y moto",
+    description:
+      "Llantas para carro y moto con asesoría técnica, garantía e instalación incluida en Medellín. Encuentra la medida exacta para tu vehículo.",
+    path: "/",
+  }),
 };
 
 export default function RootLayout({ children }) {

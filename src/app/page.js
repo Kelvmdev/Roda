@@ -1,6 +1,14 @@
 import Buscador from "@/components/Buscador";
 import ProductCard from "@/components/ProductCard";
 import productos from "@/data/productos.json";
+import { construirMeta } from "@/lib/seo";
+
+export const metadata = construirMeta({
+  title: "RODA — Llantas para carro y moto con instalación en Medellín",
+  description:
+    "Encuentra tu medida exacta y compra llantas para carro y moto con asesoría, garantía e instalación incluida. Paga contraentrega o por transferencia. Envío en Medellín.",
+  path: "/",
+});
 
 // --- Datos estáticos (presentacional; luego vendrán de datos reales) ---
 const CONFIANZA = [

@@ -18,13 +18,24 @@ export const RINES = unicos(productos.map((p) => p.rin)).sort(
 );
 
 // Filtra el catálogo. Un campo vacío (o "todos") no filtra.
-export function filtrar({ tipo, marca, ancho, perfil, rin } = {}) {
+//   etiqueta → solo llantas con esa etiqueta (ej. "Oferta").
+//   q        → texto libre: busca en marca, modelo y medida.
+export function filtrar({ tipo, marca, ancho, perfil, rin, etiqueta, q } = {}) {
+  // Reusamos slugify para comparar sin importar mayúsculas ni tildes (§5.6):
+  // "Michelin" y "michelin" producen el mismo slug.
+  const consulta = q ? slugify(q) : "";
+
   return productos.filter((p) => {
     if (tipo && tipo !== "todos" && p.tipo !== tipo) return false;
     if (marca && p.marca !== marca) return false;
     if (ancho && p.ancho !== ancho) return false;
     if (perfil && p.perfil !== perfil) return false;
     if (rin && p.rin !== rin) return false;
+    if (etiqueta && p.etiqueta !== etiqueta) return false;
+    if (consulta) {
+      const texto = slugify(`${p.marca} ${p.modelo} ${medidaDe(p)}`);
+      if (!texto.includes(consulta)) return false;
+    }
     return true;
   });
 }

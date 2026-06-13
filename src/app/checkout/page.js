@@ -7,6 +7,7 @@ import LlantaSVG from "@/components/LlantaSVG";
 import CampoFormulario from "@/components/CampoFormulario";
 import { useCarrito } from "@/context/CarritoContext";
 import { formatoPrecio } from "@/lib/catalogo";
+import { enlaceWhatsapp, CLAVE_WHATSAPP } from "@/lib/config";
 
 // Reglas de validación. Devuelve un objeto { campo: "mensaje" }.
 // Un campo sin error simplemente no aparece en el objeto.
@@ -36,6 +37,38 @@ function validar(datos) {
 function generarNumeroPedido() {
   const aleatorio = Math.random().toString(36).slice(2, 7).toUpperCase();
   return `RODA-${aleatorio}`;
+}
+
+// Etiquetas legibles del método de pago.
+const PAGO_LEGIBLE = {
+  contraentrega: "Contraentrega",
+  transferencia: "Transferencia / Nequi",
+};
+
+// Arma un mensaje de texto plano (con saltos de línea) para WhatsApp.
+function construirMensaje(numero, datos, items, total) {
+  const lineasLlantas = items.map(
+    (it) =>
+      `• ${it.cantidad} × ${it.marca} ${it.modelo} (${it.medida}) — ${formatoPrecio(
+        it.precio * it.cantidad
+      )}`
+  );
+
+  return [
+    `Hola RODA, quiero confirmar mi pedido ${numero}.`,
+    "",
+    "Mis datos:",
+    `Nombre: ${datos.nombre}`,
+    `Teléfono: ${datos.telefono}`,
+    `Ciudad: ${datos.ciudad}`,
+    `Dirección: ${datos.direccion}`,
+    `Método de pago: ${PAGO_LEGIBLE[datos.metodoPago] ?? datos.metodoPago}`,
+    "",
+    "Llantas:",
+    ...lineasLlantas,
+    "",
+    `Total: ${formatoPrecio(total)}`,
+  ].join("\n");
 }
 
 const VALORES_INICIALES = {
@@ -97,10 +130,25 @@ export default function CheckoutPage() {
       return;
     }
 
-    // Válido: generamos pedido, vaciamos el carrito y vamos a /gracias.
+    // Válido: armamos el pedido y el enlace de WhatsApp.
+    const numero = generarNumeroPedido();
+    const mensaje = construirMensaje(numero, datos, items, subtotal);
+    const urlWhatsapp = enlaceWhatsapp(mensaje);
+
+    // Respaldo: guardamos el enlace ANTES de vaciar el carrito, para que
+    // /gracias pueda reabrirlo si el navegador bloqueó la pestaña automática.
+    try {
+      sessionStorage.setItem(CLAVE_WHATSAPP, urlWhatsapp);
+    } catch {
+      // Si sessionStorage no está disponible, seguimos: el respaldo es opcional.
+    }
+
+    // Abrimos WhatsApp en una pestaña nueva. Va DENTRO del clic de "Confirmar"
+    // (gesto del usuario) para que el navegador no lo trate como popup y lo bloquee.
+    window.open(urlWhatsapp, "_blank", "noopener,noreferrer");
+
     // `enviando` evita que el render muestre "carrito vacío" tras vaciar(),
     // mientras la navegación se completa.
-    const numero = generarNumeroPedido();
     setEnviando(true);
     vaciar();
     router.push(`/gracias?pedido=${numero}`);

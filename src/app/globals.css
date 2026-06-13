@@ -12,6 +12,10 @@
   --color-linea: #e2e7ef;
   --color-texto: #0e2342;
   --color-texto-suave: #5c6b82;
+  /* Verde WhatsApp para el CTA. Más profundo que el #25D366 de marca para que
+     el texto blanco encima pase contraste AA (§6.3): ~5.2:1. `deep` = hover. */
+  --color-whatsapp: #0a7d42;
+  --color-whatsapp-deep: #086636;
 }
 
 /* Fuentes: referencian las variables que inyecta next/font en el layout.

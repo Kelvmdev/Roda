@@ -2,12 +2,14 @@ import { Suspense } from "react";
 import { filtrar } from "@/lib/catalogo";
 import ProductCard from "@/components/ProductCard";
 import FiltrosCatalogo from "@/components/FiltrosCatalogo";
+import { construirMeta } from "@/lib/seo";
 
-export const metadata = {
-  title: "Catálogo — RODA",
+export const metadata = construirMeta({
+  title: "Catálogo de llantas para carro y moto — RODA",
   description:
-    "Explora todas nuestras llantas para carro y moto. Filtra por tipo, marca y medida.",
-};
+    "Explora todas nuestras llantas para carro y moto. Filtra por tipo, marca y medida, y encuentra la tuya con instalación incluida en Medellín.",
+  path: "/catalogo",
+});
 
 export default async function Catalogo({ searchParams }) {
   // searchParams es una Promise en este Next → hay que await.
@@ -19,7 +21,14 @@ export default async function Catalogo({ searchParams }) {
     ancho: sp.ancho ?? "",
     perfil: sp.perfil ?? "",
     rin: sp.rin ?? "",
+    etiqueta: sp.etiqueta ?? "",
+    q: sp.q ?? "",
   });
+
+  // Subtítulo según lo que se esté viendo (búsqueda u oferta).
+  let contexto = null;
+  if (sp.q) contexto = `Resultados para «${sp.q}»`;
+  else if (sp.etiqueta) contexto = `Llantas en ${sp.etiqueta}`;
 
   return (
     <section className="bg-fondo">
@@ -29,6 +38,7 @@ export default async function Catalogo({ searchParams }) {
             Catálogo
           </h1>
           <p className="mt-1 text-sm text-texto-suave">
+            {contexto && <span className="font-medium text-navy">{contexto} · </span>}
             {resultados.length} {resultados.length === 1 ? "llanta" : "llantas"}
           </p>
         </header>

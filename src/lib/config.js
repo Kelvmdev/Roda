@@ -1,0 +1,19 @@
+// Configuración compartida del negocio. Un solo lugar para datos que se reusan
+// en varias páginas (checkout, /gracias y, a futuro, header/footer/ayuda).
+
+// WhatsApp en formato wa.me (sin +, espacios ni guiones).
+// El prefijo NEXT_PUBLIC_ hace que la variable esté disponible también en el
+// navegador (los componentes cliente la necesitan). Si no se define, usamos el
+// número real como valor por defecto.
+export const WHATSAPP_NUMERO =
+  process.env.NEXT_PUBLIC_WHATSAPP || "573117365928";
+
+// Clave de sessionStorage donde el checkout deja el enlace de respaldo para
+// que /gracias pueda reabrirlo. Compartida para no repetir el string.
+export const CLAVE_WHATSAPP = "roda_whatsapp";
+
+// Arma un enlace wa.me. Si pasas texto, lo codifica para la URL.
+export const enlaceWhatsapp = (texto) =>
+  `https://wa.me/${WHATSAPP_NUMERO}${
+    texto ? `?text=${encodeURIComponent(texto)}` : ""
+  }`;

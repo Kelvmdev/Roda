@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import productos from "@/data/productos.json";
 import { porSlug, similares, formatoPrecio, medidaDe } from "@/lib/catalogo";
+import { construirMeta } from "@/lib/seo";
 import LlantaSVG from "@/components/LlantaSVG";
 import ProductCard from "@/components/ProductCard";
 import BotonAgregar from "@/components/BotonAgregar";
@@ -18,10 +19,14 @@ export async function generateMetadata({ params }) {
   if (!producto) {
     return { title: "Producto no encontrado — RODA" };
   }
-  return {
-    title: `${producto.marca} ${producto.modelo} ${medidaDe(producto)} — RODA`,
-    description: producto.descripcion,
-  };
+  const medida = medidaDe(producto);
+  return construirMeta({
+    title: `${producto.marca} ${producto.modelo} ${medida} — RODA`,
+    description:
+      producto.descripcion ||
+      `Llanta ${producto.marca} ${producto.modelo} medida ${medida}, con instalación y garantía en RODA.`,
+    path: `/producto/${slug}`,
+  });
 }
 
 const CONFIANZA = [

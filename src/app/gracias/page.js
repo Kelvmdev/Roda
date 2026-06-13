@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BotonWhatsAppPedido from "@/components/BotonWhatsAppPedido";
 
 // /gracias no debe indexarse en buscadores (§6.4): es una página de confirmación.
 export const metadata = {
@@ -49,12 +50,16 @@ export default async function GraciasPage({ searchParams }) {
           pago. No se realizó ningún cobro en línea.
         </p>
 
-        <Link
-          href="/catalogo"
-          className="mt-8 inline-flex rounded-full bg-acento px-8 py-3.5 font-semibold text-superficie transition duration-150 hover:bg-navy active:scale-95"
-        >
-          Seguir comprando
-        </Link>
+        <div className="mt-8 flex flex-col items-center gap-3">
+          {/* Respaldo: reabre WhatsApp si la pestaña automática se bloqueó. */}
+          <BotonWhatsAppPedido />
+          <Link
+            href="/catalogo"
+            className="inline-flex rounded-full border border-linea px-8 py-3.5 font-semibold text-navy transition duration-150 hover:bg-acento-suave active:scale-95"
+          >
+            Seguir comprando
+          </Link>
+        </div>
       </div>
     </div>
   );
